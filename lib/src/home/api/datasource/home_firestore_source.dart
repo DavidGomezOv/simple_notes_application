@@ -9,7 +9,7 @@ class HomeFirestoreSource {
   @factoryMethod
   HomeFirestoreSource.from();
 
-  Stream<dynamic> getNotes() {
+  Stream<QuerySnapshot<Map<String, dynamic>>> getNotes() {
     final db = FirebaseFirestore.instance;
     return db.collection(Constants.notesCollection).snapshots();
   }

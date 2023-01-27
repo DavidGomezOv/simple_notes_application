@@ -27,10 +27,8 @@ class HomeService extends BaseReactiveService {
     return _repository.getNotes().listen((event) {
       loadingReactiveValue.value = false;
       List<NoteModel> notes = [];
-      for (var e in event.docChanges) {
-        if (e.doc.data() != null) {
-          notes.add(NoteModel.fromJson(e.doc.data()!));
-        }
+      for (var e in event.docs) {
+        notes.add(NoteModel.fromJson(e.data()));
       }
       notesValue.value = notes;
     }).onError((error) {
