@@ -1,4 +1,5 @@
-import 'package:simple_chopper_example/src/core/di/app_component.dart';
+import 'package:simple_notes_application/src/core/di/app_component.dart';
+import 'package:simple_notes_application/src/core/enums/enums.dart';
 
 void showAlertDialog(
   String message, {
@@ -24,5 +25,3 @@ void showAlertDialog(
     cancelClick?.call();
   }
 }
-
-enum DialogType { floating }

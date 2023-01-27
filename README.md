@@ -4,4 +4,6 @@ A new Flutter project with chopper lib and stacked architecture
 
 ## Getting Started
 
-//TODO Pending adding initial set up
+- flutter pub clean
+- flutter pub get
+- flutter pub run build_runner build --delete-conflicting-outputs

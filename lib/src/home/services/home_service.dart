@@ -1,43 +1,41 @@
+import 'dart:async';
+
 import 'package:injectable/injectable.dart';
-import 'package:simple_chopper_example/src/core/base/base_reactive_service.dart';
-import 'package:simple_chopper_example/src/core/converters/exception/api_exception.dart';
-import 'package:simple_chopper_example/src/core/either/api_result.dart';
-import 'package:simple_chopper_example/src/home/api/repository/home_repository.dart';
-import 'package:simple_chopper_example/src/home/model/item_list_model.dart';
+import 'package:simple_notes_application/src/core/base/base_reactive_service.dart';
+import 'package:simple_notes_application/src/home/api/repository/home_repository.dart';
+import 'package:simple_notes_application/src/home/model/note_model.dart';
 import 'package:stacked/stacked.dart';
 
 @lazySingleton
 class HomeService extends BaseReactiveService {
   final HomeRepository _repository;
 
-  final itemListValue = ReactiveValue<List<ItemListModel>>([]);
+  final isGridViewValue = ReactiveValue<bool>(false);
+  final notesValue = ReactiveValue<List<NoteModel>>([]);
 
   @factoryMethod
   HomeService.from(this._repository) {
     listenToReactiveValues([
       loadingReactiveValue,
-      itemListValue,
+      isGridViewValue,
+      notesValue,
     ]);
   }
 
-  Future<dynamic> getItemList() async {
+  Future<dynamic> getNotes() async {
     loadingReactiveValue.value = true;
-    return _repository
-        .getItemList()
-        .then((value) {
-          if (value.status == Status.completed) {
-            final data = value.data as List<ItemListModel>;
-            itemListValue.value = data;
-            return data;
-          } else {
-            throw value.apiException as ApiException;
-          }
-        })
-        .catchError(
-          (error) => throw (error),
-        )
-        .whenComplete(
-          () => loadingReactiveValue.value = false,
-        );
+    return _repository.getNotes().listen((event) {
+      loadingReactiveValue.value = false;
+      List<NoteModel> notes = [];
+      for (var e in event.docChanges) {
+        if (e.doc.data() != null) {
+          notes.add(NoteModel.fromJson(e.doc.data()!));
+        }
+      }
+      notesValue.value = notes;
+    }).onError((error) {
+      loadingReactiveValue.value = false;
+      throw (error);
+    });
   }
 }
