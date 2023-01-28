@@ -12,6 +12,8 @@ class HomeService extends BaseReactiveService {
 
   final isGridViewValue = ReactiveValue<bool>(false);
   final notesValue = ReactiveValue<List<NoteModel>>([]);
+  final noteSelectedValue = ReactiveValue<NoteModel?>(null);
+  StreamSubscription<dynamic>? streamSubscription;
 
   @factoryMethod
   HomeService.from(this._repository) {
@@ -23,17 +25,18 @@ class HomeService extends BaseReactiveService {
   }
 
   Future<dynamic> getNotes() async {
+    streamSubscription?.cancel();
     loadingReactiveValue.value = true;
-    return _repository.getNotes().listen((event) {
+    final stream = await _repository.getNotes();
+    streamSubscription = stream.listen((event) {
       loadingReactiveValue.value = false;
       List<NoteModel> notes = [];
       for (var e in event.docs) {
-        notes.add(NoteModel.fromJson(e.data()));
+        final note = NoteModel.fromJson(e.data());
+        note.id = e.id;
+        notes.add(note);
       }
       notesValue.value = notes;
-    }).onError((error) {
-      loadingReactiveValue.value = false;
-      throw (error);
     });
   }
 }

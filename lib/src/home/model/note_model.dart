@@ -6,7 +6,7 @@ part 'note_model.g.dart';
 @JsonSerializable(explicitToJson: true)
 class NoteModel {
   @JsonKey(name: 'id')
-  final String? id;
+  String? id;
   @JsonKey(name: 'title')
   final String? title;
   @JsonKey(name: 'content')
@@ -23,7 +23,7 @@ class NoteModel {
   @JsonKey(name: 'textType')
   final String? textType;
   @JsonKey(name: 'textSize')
-  final int? textSize;
+  final double? textSize;
 
   NoteModel(
     this.id,

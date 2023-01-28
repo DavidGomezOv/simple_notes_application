@@ -22,7 +22,7 @@ class GridTileWidget extends ViewModelWidget<HomeViewModel> {
             height: viewModel.isGridView ? 140 : 80,
           )
         : GestureDetector(
-            onTap: viewModel.onNoteTap,
+            onTap: () => viewModel.onNoteTap(noteModel),
             child: Container(
               width: double.infinity,
               padding: const EdgeInsets.all(10.0),

@@ -14,7 +14,7 @@ NoteModel _$NoteModelFromJson(Map<String, dynamic> json) => NoteModel(
       json['color'] as String?,
       json['isPinned'] as bool?,
       json['textType'] as String?,
-      json['textSize'] as int?,
+      (json['textSize'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$NoteModelToJson(NoteModel instance) => <String, dynamic>{

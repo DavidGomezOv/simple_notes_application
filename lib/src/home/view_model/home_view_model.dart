@@ -1,13 +1,18 @@
+import 'package:flutter/material.dart';
+import 'package:simple_notes_application/routes.dart';
 import 'package:simple_notes_application/src/core/base/base_view_model.dart';
 import 'package:simple_notes_application/src/core/constants/constants.dart';
 import 'package:simple_notes_application/src/core/di/app_component.dart';
 import 'package:simple_notes_application/src/core/utils/shared_preferences_helper.dart';
 import 'package:simple_notes_application/src/home/model/note_model.dart';
 import 'package:simple_notes_application/src/home/services/home_service.dart';
+import 'package:simple_notes_application/src/home/ui/widgets/floating_action_button.dart';
 import 'package:stacked/stacked.dart';
 
 class HomeViewModel extends AppBaseViewModel {
   final _homeService = locator<HomeService>();
+
+  final GlobalKey<ExpandableFabState> globalKey = GlobalKey();
 
   List<NoteModel> get notes => _homeService.notesValue.value;
 
@@ -27,8 +32,7 @@ class HomeViewModel extends AppBaseViewModel {
 
   void getNotes() {
     _homeService.getNotes().catchError((error) {
-      _homeService.loadingReactiveValue.value = false;
-      errorApiResponse(error);
+      errorApiResponse(error.toString());
     });
   }
 
@@ -46,8 +50,12 @@ class HomeViewModel extends AppBaseViewModel {
   }
 
   void onSearchNote(String searchText) {
-
+    globalKey.currentState?.toggle();
   }
 
-  void onNoteTap() {}
+  void onNoteTap(NoteModel? noteModel) {
+    globalKey.currentState?.toggle();
+    _homeService.noteSelectedValue.value = noteModel;
+    appNavigator.push(Routes.noteDetail);
+  }
 }

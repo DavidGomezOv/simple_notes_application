@@ -11,7 +11,7 @@ class HomeRepository {
   @factoryMethod
   HomeRepository.from(this._datasourceNotes);
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> getNotes() {
+  Future<Stream<QuerySnapshot<Map<String, dynamic>>>> getNotes() {
     return _datasourceNotes.getNotes();
   }
 }
