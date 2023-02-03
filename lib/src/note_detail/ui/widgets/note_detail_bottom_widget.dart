@@ -3,8 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:simple_notes_application/src/core/constants/constants.dart';
 import 'package:simple_notes_application/src/core/enums/enums.dart';
 import 'package:simple_notes_application/src/core/extensions/generic_extensions.dart';
-import 'package:simple_notes_application/src/create_note/ui/widgets/note_detail_color_picker.dart';
-import 'package:simple_notes_application/src/create_note/view_model/note_detail_view_model.dart';
+import 'package:simple_notes_application/src/note_detail/ui/widgets/note_detail_color_picker.dart';
+import 'package:simple_notes_application/src/note_detail/view_model/note_detail_view_model.dart';
 import 'package:stacked/stacked.dart';
 
 class NoteDetailBottomWidget extends ViewModelWidget<NoteDetailViewModel> {
@@ -21,7 +21,10 @@ class NoteDetailBottomWidget extends ViewModelWidget<NoteDetailViewModel> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               TextButton(
-                onPressed: () => viewModel.onTextTypeChanged(TextType.bold),
+                onPressed: () => viewModel.onTextTypeChanged(
+                    viewModel.textType == TextType.bold
+                        ? TextType.normal
+                        : TextType.bold),
                 style: TextButton.styleFrom(
                   minimumSize: Size.zero,
                   padding:
@@ -37,7 +40,10 @@ class NoteDetailBottomWidget extends ViewModelWidget<NoteDetailViewModel> {
                 ),
               ),
               TextButton(
-                onPressed: () => viewModel.onTextTypeChanged(TextType.italic),
+                onPressed: () => viewModel.onTextTypeChanged(
+                    viewModel.textType == TextType.italic
+                        ? TextType.normal
+                        : TextType.italic),
                 style: TextButton.styleFrom(
                   minimumSize: Size.zero,
                   padding:
@@ -91,7 +97,7 @@ class NoteDetailBottomWidget extends ViewModelWidget<NoteDetailViewModel> {
             children: [
               Expanded(
                 child: Text(
-                  viewModel.createdDate ?? '',
+                  viewModel.createdDate.formatDate(),
                   style: const TextStyle(
                       color: Colors.white, fontWeight: FontWeight.w500),
                 ),
@@ -106,7 +112,8 @@ class NoteDetailBottomWidget extends ViewModelWidget<NoteDetailViewModel> {
                     context: context,
                     builder: (context) {
                       return CustomColorPicker(
-                        onSelectColor: (color) => viewModel.onNoteColorChanged(color),
+                        onSelectColor: (color) =>
+                            viewModel.onNoteColorChanged(color),
                         availableColors: [
                           HexColor.fromHex(CustomColors.colorBlack74),
                           HexColor.fromHex(CustomColors.colorRed),
@@ -119,43 +126,38 @@ class NoteDetailBottomWidget extends ViewModelWidget<NoteDetailViewModel> {
                           HexColor.fromHex(CustomColors.colorPink),
                         ],
                         initialColor: viewModel.noteColor,
-                        backgroundColor:
-                            HexColor.fromHex(CustomColors.colorBlack74),
+                        backgroundColor: viewModel.noteColor,
                       );
                     },
                   );
                 },
               ),
-              //Pending function implementation
-              /*IconButton(
-                            icon: const Icon(
-                              Icons.add_box_outlined,
-                              color: Colors.white,
-                            ),
-                            onPressed: () {},
-                          ),*/
               IconButton(
-                  icon: const Icon(
-                    Icons.delete,
-                    color: Colors.white,
-                  ),
-                  onPressed: viewModel.deleteNote),
+                icon: const Icon(
+                  Icons.photo,
+                  color: Colors.white,
+                ),
+                onPressed: () {},
+              ),
             ],
           ),
           SizedBox(
             width: double.infinity,
             child: TextButton(
               style: ButtonStyle(
-                backgroundColor: viewModel.loading
-                    ? MaterialStateProperty.all<Color>(Colors.white12)
-                    : MaterialStateProperty.all<Color>(Colors.blue),
-                overlayColor: viewModel.loading
+                backgroundColor:
+                    viewModel.loading || !viewModel.isButtonAvailable
+                        ? MaterialStateProperty.all<Color>(Colors.white12)
+                        : MaterialStateProperty.all<Color>(Colors.blue),
+                overlayColor: viewModel.loading || !viewModel.isButtonAvailable
                     ? null
                     : MaterialStateProperty.all<Color>(Colors.white12),
               ),
-              onPressed: viewModel.loading ? null : viewModel.saveNote,
+              onPressed: viewModel.loading || !viewModel.isButtonAvailable
+                  ? null
+                  : viewModel.saveNote,
               child: Text(
-                viewModel.noteSelected == null ? 'Edit' : 'Save',
+                viewModel.noteSelected == null ? 'Save' : 'Edit',
                 style: const TextStyle(color: Colors.white),
               ),
             ),

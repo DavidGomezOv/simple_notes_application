@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:simple_notes_application/src/create_note/view_model/note_detail_view_model.dart';
+import 'package:simple_notes_application/src/core/extensions/generic_extensions.dart';
 import 'package:simple_notes_application/src/core/extensions/string_extensions.dart';
+import 'package:simple_notes_application/src/note_detail/view_model/note_detail_view_model.dart';
 import 'package:stacked/stacked.dart';
 
 class NoteDetailBodyWidget extends ViewModelWidget<NoteDetailViewModel> {
@@ -16,17 +17,16 @@ class NoteDetailBodyWidget extends ViewModelWidget<NoteDetailViewModel> {
           decoration: InputDecoration.collapsed(
               hintText: 'Note',
               hintStyle: TextStyle(
-                  fontSize: viewModel.noteSelected?.textSize ?? 18.0,
-                  color: Colors.white)),
+                  fontSize: viewModel.textSize, color: Colors.white38)),
           style: TextStyle(
               color: Colors.white,
-              fontSize: viewModel.noteSelected?.textSize ?? 18.0,
-              fontStyle: viewModel.noteSelected?.textType?.getFontStyle(),
-              fontWeight: viewModel.noteSelected?.textType?.getFontWeight()),
+              fontSize: viewModel.textSize,
+              fontStyle: viewModel.textType.asString().getFontStyle(),
+              fontWeight: viewModel.textType.asString().getFontWeight()),
           cursorColor: Colors.white,
           maxLines: null,
           expands: true,
-          onChanged: viewModel.onContentChanged,
+          onChanged: (value) => viewModel.validateButton(),
         ),
       ),
     );

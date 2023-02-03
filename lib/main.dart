@@ -4,8 +4,8 @@ import 'package:simple_notes_application/firebase_options.dart';
 import 'package:simple_notes_application/routes.dart';
 import 'package:simple_notes_application/src/core/di/app_component.dart';
 import 'package:simple_notes_application/src/core/enums/enums.dart';
-import 'package:simple_notes_application/src/core/utils/app_dialogs.dart';
 import 'package:simple_notes_application/src/core/widgets/alert_bottom_sheet.dart';
+import 'package:simple_notes_application/src/core/widgets/alert_center_sheet.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 void main() async {
@@ -22,8 +22,10 @@ void main() async {
 void _setupBottomSheetUi() {
   final bottomSheetService = locator<BottomSheetService>();
   final builders = {
-    DialogType.floating: (context, sheetRequest, completer) =>
+    DialogType.error: (context, sheetRequest, completer) =>
         AlertBottomSheet(request: sheetRequest, completer: completer),
+    DialogType.informative: (context, sheetRequest, completer) =>
+        AlertCenterSheet(request: sheetRequest, completer: completer),
   };
   bottomSheetService.setCustomSheetBuilders(builders);
 }

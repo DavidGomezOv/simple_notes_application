@@ -32,9 +32,10 @@ class HomeService extends BaseReactiveService {
       loadingReactiveValue.value = false;
       List<NoteModel> notes = [];
       for (var e in event.docs) {
-        final note = NoteModel.fromJson(e.data());
-        note.id = e.id;
-        notes.add(note);
+        notes.add(NoteModel.fromJson(e.data()));
+      }
+      if (notes.isNotEmpty) {
+        notes.sort((a, b) => b.createdAt!.compareTo(a.createdAt!),);
       }
       notesValue.value = notes;
     });

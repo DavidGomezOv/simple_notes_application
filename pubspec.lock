@@ -421,7 +421,7 @@ packages:
       name: logging
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.0"
+    version: "1.1.1"
   matcher:
     dependency: transitive
     description:
@@ -678,7 +678,7 @@ packages:
       name: stacked
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.0+2"
+    version: "3.1.0+3"
   stacked_core:
     dependency: transitive
     description:

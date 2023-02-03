@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:simple_notes_application/src/create_note/ui/widgets/note_detail_body_widget.dart';
-import 'package:simple_notes_application/src/create_note/ui/widgets/note_detail_bottom_widget.dart';
-import 'package:simple_notes_application/src/create_note/ui/widgets/note_detail_top_bar_widget.dart';
-import 'package:simple_notes_application/src/create_note/view_model/note_detail_view_model.dart';
+import 'package:simple_notes_application/src/note_detail/ui/widgets/note_detail_body_widget.dart';
+import 'package:simple_notes_application/src/note_detail/ui/widgets/note_detail_bottom_widget.dart';
+import 'package:simple_notes_application/src/note_detail/ui/widgets/note_detail_top_bar_widget.dart';
+import 'package:simple_notes_application/src/note_detail/view_model/note_detail_view_model.dart';
 import 'package:stacked/stacked.dart';
 
 class NoteDetailScreen extends StatelessWidget {

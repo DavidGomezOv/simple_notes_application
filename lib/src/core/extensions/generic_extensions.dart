@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:simple_notes_application/src/core/enums/enums.dart';
 
 extension HexColor on Color {
@@ -20,11 +21,15 @@ extension TextTypeExtension on TextType {
   String asString() => toString().split('.').last;
 }
 
-TextType? stringToEnum(String value) {
+TextType? stringToEnum(String? value) {
   return <String, TextType>{
     'bold': TextType.bold,
     'italic': TextType.italic,
     'italicBold': TextType.italicBold,
     'normal': TextType.normal,
   }[value];
+}
+
+extension DateString on DateTime {
+  String formatDate() => DateFormat('MMM d, yyyy - h:mm aaa').format(this);
 }

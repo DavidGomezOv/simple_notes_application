@@ -6,7 +6,7 @@ part 'note_model.g.dart';
 @JsonSerializable(explicitToJson: true)
 class NoteModel {
   @JsonKey(name: 'id')
-  String? id;
+  final String? id;
   @JsonKey(name: 'title')
   final String? title;
   @JsonKey(name: 'content')
@@ -14,6 +14,7 @@ class NoteModel {
   @JsonKey(
     name: 'createdAt',
     fromJson: _fromJson,
+    toJson: _toJson
   )
   final DateTime? createdAt;
   @JsonKey(name: 'color')
@@ -42,6 +43,7 @@ class NoteModel {
   Map<String, dynamic> toJson() => _$NoteModelToJson(this);
 
   static DateTime? _fromJson(Timestamp data) => data.toDate();
+  static Timestamp _toJson(DateTime? time) => Timestamp.fromDate(time!);
 
   @override
   String toString() {

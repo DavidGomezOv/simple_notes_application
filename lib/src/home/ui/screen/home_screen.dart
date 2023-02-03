@@ -16,35 +16,40 @@ class HomeScreen extends StatelessWidget {
       viewModelBuilder: () => HomeViewModel(),
       builder: (context, viewModel, child) => SafeArea(
         child: Scaffold(
-          body: RefreshIndicator(
-            onRefresh: () async {
-              viewModel.getNotes();
-            },
-            child: Container(
-              padding: const EdgeInsets.all(10.0),
-              color: HexColor.fromHex(CustomColors.colorBlack74),
-              child: Column(
-                children: [
-                  HomeTopBarWidget(
-                    title: 'Search notes here',
-                    textColor: HexColor.fromHex(CustomColors.colorWhite54),
-                    onTap: viewModel.changeGridViewValue,
-                    iconData: Icon(
-                      viewModel.isGridView
-                          ? Icons.view_list
-                          : Icons.auto_awesome_mosaic,
-                      size: 35.0,
-                      color: HexColor.fromHex(CustomColors.colorWhite38),
+          body: GestureDetector(
+            onTap: () => viewModel.closeFabButton(),
+            behavior: HitTestBehavior.opaque,
+            child: RefreshIndicator(
+              onRefresh: () async {
+                viewModel.getNotes();
+              },
+              child: Container(
+                padding: const EdgeInsets.all(10.0),
+                color: HexColor.fromHex(CustomColors.colorBlack74),
+                child: Column(
+                  children: [
+                    HomeTopBarWidget(
+                      title: 'Search notes here',
+                      textColor: HexColor.fromHex(CustomColors.colorWhite54),
+                      onTap: viewModel.changeGridViewValue,
+                      iconData: Icon(
+                        viewModel.isGridView
+                            ? Icons.view_list
+                            : Icons.auto_awesome_mosaic,
+                        size: 35.0,
+                        color: HexColor.fromHex(CustomColors.colorWhite38),
+                      ),
                     ),
-                  ),
-                  const Expanded(
-                    child: GridNotesWidget(),
-                  ),
-                ],
+                    const Expanded(
+                      child: GridNotesWidget(),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
           floatingActionButton: ExpandableFab(
+            viewModel: viewModel,
             key: viewModel.globalKey,
             children: [
               ActionButton(
@@ -55,7 +60,7 @@ class HomeScreen extends StatelessWidget {
               ActionButton(
                 tag: 'photo',
                 icon: const Icon(Icons.insert_photo),
-                onPressed: () {},
+                onPressed: () => viewModel.onPhotoNoteTap(),
               ),
             ],
           ),

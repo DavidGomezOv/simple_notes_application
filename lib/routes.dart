@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:simple_notes_application/src/create_note/ui/screen/note_detail_screen.dart';
 import 'package:simple_notes_application/src/home/ui/screen/home_screen.dart';
+import 'package:simple_notes_application/src/note_detail/ui/screen/note_detail_screen.dart';
 
 class Routes {
   static const String home = '/home';

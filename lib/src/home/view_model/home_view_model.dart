@@ -20,6 +20,8 @@ class HomeViewModel extends AppBaseViewModel {
 
   bool get isGridView => _homeService.isGridViewValue.value;
 
+  //TODO IMPLEMENT SERVICE TO HANDLE NETWORK STATE CHANGES
+
   HomeViewModel() {
     getGridViewValue();
     getNotes();
@@ -32,7 +34,7 @@ class HomeViewModel extends AppBaseViewModel {
 
   void getNotes() {
     _homeService.getNotes().catchError((error) {
-      errorApiResponse(error.toString());
+      handleApiResponse(error.toString());
     });
   }
 
@@ -44,18 +46,27 @@ class HomeViewModel extends AppBaseViewModel {
   }
 
   void changeGridViewValue() {
+    closeFabButton();
     _homeService.isGridViewValue.value = !isGridView;
     SharedPreferenceHelper.savePreferencesBool(
         Constants.isGridViewKey, isGridView);
   }
 
   void onSearchNote(String searchText) {
+    closeFabButton();
+  }
+
+  void onNoteTap(NoteModel? noteModel) async {
+    closeFabButton();
+    _homeService.noteSelectedValue.value = noteModel;
+    appNavigator.push(Routes.noteDetail);
+  }
+
+  void onPhotoNoteTap() {
     globalKey.currentState?.toggle();
   }
 
-  void onNoteTap(NoteModel? noteModel) {
-    globalKey.currentState?.toggle();
-    _homeService.noteSelectedValue.value = noteModel;
-    appNavigator.push(Routes.noteDetail);
+  void closeFabButton() {
+    if (globalKey.currentState!.open) globalKey.currentState?.toggle();
   }
 }

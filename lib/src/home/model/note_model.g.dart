@@ -21,7 +21,7 @@ Map<String, dynamic> _$NoteModelToJson(NoteModel instance) => <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
       'content': instance.content,
-      'createdAt': instance.createdAt?.toIso8601String(),
+      'createdAt': NoteModel._toJson(instance.createdAt),
       'color': instance.color,
       'isPinned': instance.isPinned,
       'textType': instance.textType,

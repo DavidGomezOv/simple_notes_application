@@ -10,7 +10,7 @@ extension CustomColors on String {
   static const colorWhite38 = '858585';
   static const colorWhite54 = 'A2A2A2';
   static const colorWhite70 = 'B6B6B6';
-  static const colorWhite84 = 'DFDFDF';
+  static const colorWhite84 = 'D3D3D3';
   static const colorRed = 'A8223A';
   static const colorOrange = 'BB5E25';
   static const colorYellow = 'CC9D27';

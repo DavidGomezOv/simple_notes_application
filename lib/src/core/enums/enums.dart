@@ -6,5 +6,6 @@ enum TextType {
 }
 
 enum DialogType {
-  floating,
+  error,
+  informative,
 }
