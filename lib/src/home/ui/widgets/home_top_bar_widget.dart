@@ -10,13 +10,11 @@ import 'package:stacked/stacked.dart';
 class HomeTopBarWidget extends ViewModelWidget<HomeViewModel> {
   final String title;
   final Color textColor;
-  final GestureTapCallback? onTap;
   final Icon iconData;
 
   const HomeTopBarWidget({
     required this.title,
     required this.textColor,
-    required this.onTap,
     required this.iconData,
     super.key,
   });
@@ -42,38 +40,69 @@ class HomeTopBarWidget extends ViewModelWidget<HomeViewModel> {
                   child: LoadingTextWidget(width: 200, height: 20)),
             ),
           )
-        : Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30.0),
-              color: HexColor.fromHex(CustomColors.colorWhite10),
-            ),
-            child: TextField(
-              cursorColor: Colors.white,
-              decoration: InputDecoration(
-                hintText: title,
-                hintStyle: TextStyle(fontSize: 20.0, color: textColor),
-                suffixIcon: InkWell(
-                  borderRadius: BorderRadius.circular(30.0),
-                  onTap: onTap,
-                  child: iconData,
+        : Row(
+            children: [
+              MaterialButton(
+                visualDensity: VisualDensity.compact,
+                minWidth: 40,
+                height: 50,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
                 ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30.0),
-                ),
-                isDense: true,
-                contentPadding: const EdgeInsets.only(
-                    bottom: 15, top: 15, left: 15, right: 15),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.white.withOpacity(0),
+                onPressed: viewModel.changeGridViewValue,
+                child: iconData,
+              ),
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30.0),
+                    color: HexColor.fromHex(CustomColors.colorWhite10),
                   ),
-                  borderRadius: BorderRadius.circular(30.0),
+                  child: TextField(
+                    controller: viewModel.controllerSearch,
+                    cursorColor: Colors.white,
+                    decoration: InputDecoration(
+                      hintText: title,
+                      hintStyle: TextStyle(fontSize: 20.0, color: textColor),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                      suffixIcon: Visibility(
+                        visible: viewModel.isSearching,
+                        child: InkWell(
+                          onTap: viewModel.resetSearch,
+                          child: const Icon(Icons.cancel),
+                        ),
+                      ),
+                      isDense: true,
+                      contentPadding: const EdgeInsets.only(
+                          bottom: 15, top: 15, left: 15, right: 15),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.white.withOpacity(0),
+                        ),
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                    ),
+                    onEditingComplete: () => FocusScope.of(context).unfocus(),
+                    style: const TextStyle(fontSize: 20.0, color: Colors.white),
+                  ),
                 ),
               ),
-              onChanged: (value) => viewModel.onSearchNote(value),
-              onEditingComplete: () => FocusScope.of(context).unfocus(),
-              style: const TextStyle(fontSize: 20.0, color: Colors.white),
-            ),
+              MaterialButton(
+                visualDensity: VisualDensity.compact,
+                minWidth: 40,
+                height: 50,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                onPressed: viewModel.onUserTap,
+                child: const Icon(
+                  Icons.person,
+                  color: Colors.white,
+                ),
+              )
+            ],
           );
   }
 }

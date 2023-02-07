@@ -13,7 +13,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeViewModel>.reactive(
-      viewModelBuilder: () => HomeViewModel(),
+      viewModelBuilder: () => HomeViewModel(context),
       builder: (context, viewModel, child) => SafeArea(
         child: Scaffold(
           body: GestureDetector(
@@ -31,7 +31,6 @@ class HomeScreen extends StatelessWidget {
                     HomeTopBarWidget(
                       title: 'Search notes here',
                       textColor: HexColor.fromHex(CustomColors.colorWhite54),
-                      onTap: viewModel.changeGridViewValue,
                       iconData: Icon(
                         viewModel.isGridView
                             ? Icons.view_list
@@ -40,8 +39,28 @@ class HomeScreen extends StatelessWidget {
                         color: HexColor.fromHex(CustomColors.colorWhite38),
                       ),
                     ),
-                    const Expanded(
-                      child: GridNotesWidget(),
+                    Expanded(
+                      child: viewModel.notes.isEmpty
+                          ? Padding(
+                            padding: const EdgeInsets.all(20),
+                            child: Stack(
+                              children: [
+                                Center(
+                                    child: Text(
+                                      'There no notes, save one now.',
+                                      style: TextStyle(
+                                        color: HexColor.fromHex(
+                                            CustomColors.colorWhite54),
+                                        fontSize: 20,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ListView(),
+                              ],
+                            ),
+                          )
+                          : const GridNotesWidget(),
                     ),
                   ],
                 ),

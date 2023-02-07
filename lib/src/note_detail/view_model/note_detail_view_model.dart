@@ -16,7 +16,7 @@ class NoteDetailViewModel extends AppBaseViewModel {
   final _homeService = locator<HomeService>();
   final _noteDetailService = locator<NoteDetailService>();
 
-  bool get loading => _homeService.loadingReactiveValue.value;
+  bool get loading => _noteDetailService.loadingReactiveValue.value;
 
   Color get noteColor => _noteDetailService.colorValue.value;
 
@@ -92,7 +92,9 @@ class NoteDetailViewModel extends AppBaseViewModel {
   void validateUpdateNote() {
     if ((titleController.text.isNotEmpty &&
             contentController.text.isNotEmpty) &&
-        (noteColor.toHex() != noteSelected!.color ||
+        (titleController.text != noteSelected!.title ||
+            contentController.text != noteSelected!.content ||
+            noteColor.toHex() != noteSelected!.color ||
             textSize != noteSelected!.textSize ||
             isNotePinned != noteSelected!.isPinned ||
             textType.asString() != noteSelected!.textType)) {
@@ -165,7 +167,8 @@ class NoteDetailViewModel extends AppBaseViewModel {
     _noteDetailService.isNotePinned.value = !isNotePinned;
   }
 
-  void saveNote() {
+  void saveNote(BuildContext context) {
+    FocusScope.of(context).requestFocus(FocusNode());
     final note = NoteModel(
       noteSelected?.id ?? DateTime.now().toString(),
       titleController.text.toString(),

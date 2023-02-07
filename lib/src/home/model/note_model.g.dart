@@ -3,6 +3,65 @@
 part of 'note_model.dart';
 
 // **************************************************************************
+// TypeAdapterGenerator
+// **************************************************************************
+
+class NoteModelAdapter extends TypeAdapter<NoteModel> {
+  @override
+  final int typeId = 0;
+
+  @override
+  NoteModel read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return NoteModel(
+      fields[1] as String?,
+      fields[2] as String?,
+      fields[3] as String?,
+      fields[4] as DateTime?,
+      fields[5] as String?,
+      fields[6] as bool?,
+      fields[7] as String?,
+      fields[8] as double?,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, NoteModel obj) {
+    writer
+      ..writeByte(8)
+      ..writeByte(1)
+      ..write(obj.id)
+      ..writeByte(2)
+      ..write(obj.title)
+      ..writeByte(3)
+      ..write(obj.content)
+      ..writeByte(4)
+      ..write(obj.createdAt)
+      ..writeByte(5)
+      ..write(obj.color)
+      ..writeByte(6)
+      ..write(obj.isPinned)
+      ..writeByte(7)
+      ..write(obj.textType)
+      ..writeByte(8)
+      ..write(obj.textSize);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is NoteModelAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+// **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 

@@ -1,6 +1,19 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferenceHelper {
+  static const String _sessionToken = "session_token";
+
+  static void saveSessionToken(String token) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_sessionToken, token);
+  }
+
+  static Future<String?> getSessionToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? data = prefs.getString(_sessionToken);
+    return data;
+  }
+
   static void savePreferencesBool(String key, bool data) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool(key, data);

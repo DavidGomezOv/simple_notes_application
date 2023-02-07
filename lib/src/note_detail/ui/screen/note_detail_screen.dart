@@ -14,15 +14,30 @@ class NoteDetailScreen extends StatelessWidget {
       viewModelBuilder: () => NoteDetailViewModel(),
       builder: (context, viewModel, child) => SafeArea(
         child: Scaffold(
-          body: Container(
-            color: viewModel.noteColor,
-            child: Column(
-              children: const [
-                NoteDetailTopBarWidget(),
-                NoteDetailBodyWidget(),
-                NoteDetailBottomWidget(),
-              ],
-            ),
+          body: Stack(
+            children: [
+              Container(
+                color: viewModel.noteColor,
+                child: Column(
+                  children: const [
+                    NoteDetailTopBarWidget(),
+                    NoteDetailBodyWidget(),
+                    NoteDetailBottomWidget(),
+                  ],
+                ),
+              ),
+              Visibility(
+                visible: viewModel.loading,
+                child: Container(
+                  width: double.maxFinite,
+                  height: double.maxFinite,
+                  color: Colors.black.withAlpha(70),
+                  child: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

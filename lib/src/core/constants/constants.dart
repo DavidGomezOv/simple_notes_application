@@ -20,3 +20,9 @@ extension CustomColors on String {
   static const colorPurple = '7B3BAE';
   static const colorPink = 'AE3B7F';
 }
+
+extension CustomFontSize on double {
+
+  static const loginInputField = 17.0;
+
+}

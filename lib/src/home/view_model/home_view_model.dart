@@ -20,17 +20,32 @@ class HomeViewModel extends AppBaseViewModel {
 
   bool get isGridView => _homeService.isGridViewValue.value;
 
+  final BuildContext context;
+
+  bool isSearching = false;
+
+  final TextEditingController controllerSearch = TextEditingController();
+
   //TODO IMPLEMENT SERVICE TO HANDLE NETWORK STATE CHANGES
 
-  HomeViewModel() {
+  HomeViewModel(this.context) {
     getGridViewValue();
     getNotes();
+    controllerSearch.addListener(() {
+      onSearchNote(controllerSearch.text);
+    });
   }
 
   @override
   List<ReactiveServiceMixin> get reactiveServices => [
         _homeService,
       ];
+
+  @override
+  void dispose() {
+    controllerSearch.dispose();
+    super.dispose();
+  }
 
   void getNotes() {
     _homeService.getNotes().catchError((error) {
@@ -53,20 +68,52 @@ class HomeViewModel extends AppBaseViewModel {
   }
 
   void onSearchNote(String searchText) {
+    closeFabButton(closeKeyboard: false);
+    if (_homeService.completeList.isEmpty) return;
+    isSearching = true;
+    _homeService.notesValue.value = _homeService.completeList;
+    _homeService.notesValue.value = _homeService.notesValue.value
+        .where((element) =>
+            element.title!.contains(searchText) ||
+            element.content!.contains(searchText))
+        .toList();
+  }
+
+  void resetSearch() {
     closeFabButton();
+    controllerSearch.text = "";
+    isSearching = false;
+    _homeService.notesValue.value = _homeService.completeList;
   }
 
   void onNoteTap(NoteModel? noteModel) async {
     closeFabButton();
     _homeService.noteSelectedValue.value = noteModel;
-    appNavigator.push(Routes.noteDetail);
+    appNavigator.push(Routes.noteDetail).then((value) {
+      validateReloadPage();
+    });
+  }
+
+  Future<void> validateReloadPage() async {
+    final token = await SharedPreferenceHelper.getSessionToken();
+    if (token == null) {
+      getNotes();
+    }
+  }
+
+  void onUserTap() {
+    closeFabButton();
+    appNavigator.push(Routes.auth);
   }
 
   void onPhotoNoteTap() {
     globalKey.currentState?.toggle();
   }
 
-  void closeFabButton() {
+  void closeFabButton({
+    bool closeKeyboard = true,
+  }) {
+    if (closeKeyboard) FocusScope.of(context).requestFocus(FocusNode());
     if (globalKey.currentState!.open) globalKey.currentState?.toggle();
   }
 }
