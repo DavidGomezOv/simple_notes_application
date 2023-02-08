@@ -29,9 +29,9 @@ class HomeService extends BaseReactiveService {
   Future<dynamic> getNotes() async {
     final token = await SharedPreferenceHelper.getSessionToken();
     if (token != null) {
-      getFirebaseNotes();
+      return getFirebaseNotes();
     } else {
-      getLocalNotes();
+      return getLocalNotes();
     }
   }
 
@@ -47,7 +47,10 @@ class HomeService extends BaseReactiveService {
       }
       if (notes.isNotEmpty) {
         notes.sort(
-              (a, b) => b.createdAt!.compareTo(a.createdAt!),
+          (a, b) => b.createdAt!.compareTo(a.createdAt!),
+        );
+        notes.sort(
+          (a, b) => b.isPinned! ? 1 : -1,
         );
       }
       completeList = notes;
@@ -62,6 +65,9 @@ class HomeService extends BaseReactiveService {
         if (value.isNotEmpty) {
           value.sort(
             (a, b) => b.createdAt!.compareTo(a.createdAt!),
+          );
+          value.sort(
+                (a, b) => b.isPinned! ? 1 : -1,
           );
         }
         notesValue.value = value;

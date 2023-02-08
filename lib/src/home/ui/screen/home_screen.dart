@@ -42,10 +42,10 @@ class HomeScreen extends StatelessWidget {
                     Expanded(
                       child: viewModel.notes.isEmpty
                           ? Padding(
-                            padding: const EdgeInsets.all(20),
-                            child: Stack(
-                              children: [
-                                Center(
+                              padding: const EdgeInsets.all(20),
+                              child: Stack(
+                                children: [
+                                  Center(
                                     child: Text(
                                       'There no notes, save one now.',
                                       style: TextStyle(
@@ -56,10 +56,10 @@ class HomeScreen extends StatelessWidget {
                                       textAlign: TextAlign.center,
                                     ),
                                   ),
-                                ListView(),
-                              ],
-                            ),
-                          )
+                                  ListView(),
+                                ],
+                              ),
+                            )
                           : const GridNotesWidget(),
                     ),
                   ],
@@ -67,7 +67,13 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           ),
-          floatingActionButton: ExpandableFab(
+          floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+          floatingActionButton: FloatingActionButton(
+            child: const Icon(Icons.add),
+            onPressed: () => viewModel.onNoteTap(null),
+          ),
+          //Commented for future implementation
+          /*ExpandableFab(
             viewModel: viewModel,
             key: viewModel.globalKey,
             children: [
@@ -82,7 +88,7 @@ class HomeScreen extends StatelessWidget {
                 onPressed: () => viewModel.onPhotoNoteTap(),
               ),
             ],
-          ),
+          ),*/
         ),
       ),
     );

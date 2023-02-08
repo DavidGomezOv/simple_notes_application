@@ -1,6 +1,8 @@
 extension Constants on String {
   static const notesCollection = 'NOTES';
+  static const usersCollection = 'USERS';
   static const isGridViewKey = 'GRIDVIEW';
+  static const localUserId = 'LOCAL_USER_ID';
 }
 
 extension CustomColors on String {
@@ -22,7 +24,5 @@ extension CustomColors on String {
 }
 
 extension CustomFontSize on double {
-
   static const loginInputField = 17.0;
-
 }

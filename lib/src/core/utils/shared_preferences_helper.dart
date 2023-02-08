@@ -14,6 +14,11 @@ class SharedPreferenceHelper {
     return data;
   }
 
+  static void deleteSessionToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_sessionToken);
+  }
+
   static void savePreferencesBool(String key, bool data) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool(key, data);

@@ -155,7 +155,7 @@ class NoteDetailBottomWidget extends ViewModelWidget<NoteDetailViewModel> {
               ),
               onPressed: viewModel.loading || !viewModel.isButtonAvailable
                   ? null
-                  : () => viewModel.saveNote(context),
+                  : () => viewModel.saveNote(),
               child: Text(
                 viewModel.noteSelected == null ? 'Save' : 'Edit',
                 style: const TextStyle(color: Colors.white),

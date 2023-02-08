@@ -31,6 +31,9 @@ class NoteModel extends HiveObject {
   @HiveField(8)
   @JsonKey(name: 'textSize')
   final double? textSize;
+  @HiveField(9)
+  @JsonKey(name: 'userId')
+  String? userId;
 
   NoteModel(
     this.id,

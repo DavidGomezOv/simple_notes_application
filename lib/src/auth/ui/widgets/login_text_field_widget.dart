@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:simple_notes_application/src/auth/view_mode/auth_view_model.dart';
 import 'package:simple_notes_application/src/core/constants/constants.dart';
 import 'package:simple_notes_application/src/core/extensions/generic_extensions.dart';
-import 'package:simple_notes_application/src/login/view_mode/login_view_model.dart';
 import 'package:stacked/stacked.dart';
 
-class LoginTextFieldWidget extends ViewModelWidget<LoginViewModel> {
+class LoginTextFieldWidget extends ViewModelWidget<AuthViewModel> {
   final String? hintText;
   final TextInputType? inputType;
   final String? content;
@@ -44,8 +44,8 @@ class LoginTextFieldWidget extends ViewModelWidget<LoginViewModel> {
   });
 
   @override
-  Widget build(BuildContext context, LoginViewModel viewModel) {
-    return TextFormField(
+  Widget build(BuildContext context, AuthViewModel viewModel) {
+    return TextField(
       enabled: enabled,
       onTap: onTap?.call(),
       autofocus: autoFocus ?? false,

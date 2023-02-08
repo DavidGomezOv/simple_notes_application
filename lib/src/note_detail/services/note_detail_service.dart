@@ -5,7 +5,6 @@ import 'package:simple_notes_application/src/core/base/base_reactive_service.dar
 import 'package:simple_notes_application/src/core/constants/constants.dart';
 import 'package:simple_notes_application/src/core/enums/enums.dart';
 import 'package:simple_notes_application/src/core/extensions/generic_extensions.dart';
-import 'package:simple_notes_application/src/core/utils/shared_preferences_helper.dart';
 import 'package:simple_notes_application/src/home/model/note_model.dart';
 import 'package:simple_notes_application/src/note_detail/api/respository/note_detail_repository.dart';
 import 'package:stacked/stacked.dart';

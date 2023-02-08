@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:simple_notes_application/src/core/constants/constants.dart';
 import 'package:simple_notes_application/src/core/utils/shared_preferences_helper.dart';
 import 'package:simple_notes_application/src/home/model/note_model.dart';
 import 'package:simple_notes_application/src/note_detail/api/datasource/note_detail_firestore_source.dart';
@@ -15,8 +16,10 @@ class NoteDetailRepository {
   Future<void> createNote(NoteModel noteModel) async {
     final token = await SharedPreferenceHelper.getSessionToken();
     if (token != null) {
+      noteModel.userId = 'SET USER TOKEN ID';
       return _datasource.createNote(noteModel);
     } else {
+      noteModel.userId = Constants.localUserId;
       return _localDatasource.createLocalNote(noteModel);
     }
   }

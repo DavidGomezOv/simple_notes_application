@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_notes_application/routes.dart';
 import 'package:simple_notes_application/src/core/base/base_view_model.dart';
@@ -37,7 +38,7 @@ class HomeViewModel extends AppBaseViewModel {
   }
 
   @override
-  List<ReactiveServiceMixin> get reactiveServices => [
+  List<ListenableServiceMixin> get listenableServices => [
         _homeService,
       ];
 
@@ -101,9 +102,17 @@ class HomeViewModel extends AppBaseViewModel {
     }
   }
 
-  void onUserTap() {
+  void onUserTap() async {
     closeFabButton();
-    appNavigator.push(Routes.auth);
+    final user = FirebaseAuth.instance.currentUser;
+    final userId = await SharedPreferenceHelper.getSessionToken();
+    if (user != null && userId != null) {
+      appNavigator.push(Routes.signOut);
+    } else {
+      appNavigator.push(Routes.auth).then(
+            (value) => getNotes(),
+          );
+    }
   }
 
   void onPhotoNoteTap() {
@@ -114,6 +123,6 @@ class HomeViewModel extends AppBaseViewModel {
     bool closeKeyboard = true,
   }) {
     if (closeKeyboard) FocusScope.of(context).requestFocus(FocusNode());
-    if (globalKey.currentState!.open) globalKey.currentState?.toggle();
+    if (globalKey.currentState != null) globalKey.currentState?.toggle();
   }
 }

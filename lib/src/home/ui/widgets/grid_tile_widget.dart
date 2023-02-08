@@ -38,14 +38,27 @@ class GridTileWidget extends ViewModelWidget<HomeViewModel> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    noteModel!.title ?? '',
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.w600),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          noteModel!.title ?? '',
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w600),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      noteModel!.isPinned!
+                          ? const Icon(
+                              Icons.push_pin,
+                              color: Colors.white,
+                            )
+                          : const SizedBox.shrink(),
+                    ],
                   ),
                   const SizedBox(
                     height: 10,

@@ -11,7 +11,7 @@ class NoteDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<NoteDetailViewModel>.reactive(
-      viewModelBuilder: () => NoteDetailViewModel(),
+      viewModelBuilder: () => NoteDetailViewModel(context),
       builder: (context, viewModel, child) => SafeArea(
         child: Scaffold(
           body: Stack(

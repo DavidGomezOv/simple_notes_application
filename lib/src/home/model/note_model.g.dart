@@ -25,13 +25,13 @@ class NoteModelAdapter extends TypeAdapter<NoteModel> {
       fields[6] as bool?,
       fields[7] as String?,
       fields[8] as double?,
-    );
+    )..userId = fields[9] as String?;
   }
 
   @override
   void write(BinaryWriter writer, NoteModel obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(9)
       ..writeByte(1)
       ..write(obj.id)
       ..writeByte(2)
@@ -47,7 +47,9 @@ class NoteModelAdapter extends TypeAdapter<NoteModel> {
       ..writeByte(7)
       ..write(obj.textType)
       ..writeByte(8)
-      ..write(obj.textSize);
+      ..write(obj.textSize)
+      ..writeByte(9)
+      ..write(obj.userId);
   }
 
   @override
@@ -74,7 +76,7 @@ NoteModel _$NoteModelFromJson(Map<String, dynamic> json) => NoteModel(
       json['isPinned'] as bool?,
       json['textType'] as String?,
       (json['textSize'] as num?)?.toDouble(),
-    );
+    )..userId = json['userId'] as String?;
 
 Map<String, dynamic> _$NoteModelToJson(NoteModel instance) => <String, dynamic>{
       'id': instance.id,
@@ -85,4 +87,5 @@ Map<String, dynamic> _$NoteModelToJson(NoteModel instance) => <String, dynamic>{
       'isPinned': instance.isPinned,
       'textType': instance.textType,
       'textSize': instance.textSize,
+      'userId': instance.userId,
     };

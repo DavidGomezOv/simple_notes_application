@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:simple_notes_application/src/auth/view_mode/auth_view_model.dart';
 import 'package:simple_notes_application/src/core/constants/constants.dart';
 import 'package:simple_notes_application/src/core/extensions/generic_extensions.dart';
-import 'package:simple_notes_application/src/login/view_mode/login_view_model.dart';
 import 'package:stacked/stacked.dart';
 
-class LoginTopBarWidget extends ViewModelWidget<LoginViewModel> {
+class LoginTopBarWidget extends ViewModelWidget<AuthViewModel> {
   const LoginTopBarWidget({super.key});
 
   @override
-  Widget build(BuildContext context, LoginViewModel viewModel) {
+  Widget build(BuildContext context, AuthViewModel viewModel) {
     return Align(
       alignment: Alignment.topLeft,
       child: Container(

@@ -39,14 +39,16 @@ class NoteDetailViewModel extends AppBaseViewModel {
 
   bool isUpdate = false;
 
-  NoteDetailViewModel() {
+  final BuildContext context;
+
+  NoteDetailViewModel(this.context) {
     _noteDetailService.resetValues();
     loadNoteModel();
     initTimer();
   }
 
   @override
-  List<ReactiveServiceMixin> get reactiveServices => [
+  List<ListenableServiceMixin> get listenableServices => [
         _homeService,
         _noteDetailService,
       ];
@@ -163,11 +165,11 @@ class NoteDetailViewModel extends AppBaseViewModel {
   }
 
   void pinNote() {
-    //TODO change value after pin the note
     _noteDetailService.isNotePinned.value = !isNotePinned;
+    if (isUpdate) saveNote(needGoBack: false);
   }
 
-  void saveNote(BuildContext context) {
+  void saveNote({bool needGoBack = true}) {
     FocusScope.of(context).requestFocus(FocusNode());
     final note = NoteModel(
       noteSelected?.id ?? DateTime.now().toString(),
@@ -179,10 +181,9 @@ class NoteDetailViewModel extends AppBaseViewModel {
       textType.asString(),
       textSize,
     );
-    _noteDetailService
-        .createNote(note)
-        .then((value) => appNavigator.back())
-        .catchError((error) {
+    _noteDetailService.createNote(note).then((value) {
+      if (needGoBack) appNavigator.back();
+    }).catchError((error) {
       handleApiResponse(error.toString());
     });
   }

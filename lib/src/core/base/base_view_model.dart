@@ -4,7 +4,7 @@ import 'package:stacked/stacked.dart';
 abstract class AppBaseViewModel extends ReactiveViewModel {
   Future<void> handleApiResponse(dynamic exception, {Function? click}) async {
     showErrorSheet(
-      exception,
+      exception.toString(),
       okClick: click,
     );
   }

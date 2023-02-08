@@ -16,7 +16,7 @@ class AlertBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
         width: double.maxFinite,
-        alignment: Alignment.topCenter,
+        alignment: Alignment.bottomCenter,
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 15),
           padding: const EdgeInsets.all(10),
