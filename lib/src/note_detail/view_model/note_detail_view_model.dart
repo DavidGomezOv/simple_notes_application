@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:simple_notes_application/src/core/base/base_view_model.dart';
 import 'package:simple_notes_application/src/core/constants/constants.dart';
 import 'package:simple_notes_application/src/core/di/app_component.dart';
@@ -32,6 +34,8 @@ class NoteDetailViewModel extends AppBaseViewModel {
 
   NoteModel? get noteSelected => _homeService.noteSelectedValue.value;
 
+  List<File?> get images => _noteDetailService.imageList.value;
+
   TextEditingController titleController = TextEditingController();
   TextEditingController contentController = TextEditingController();
 
@@ -57,6 +61,33 @@ class NoteDetailViewModel extends AppBaseViewModel {
   void dispose() {
     timer?.cancel();
     super.dispose();
+  }
+
+  Future pickImages() async {
+    showInformativeDialog(
+      title: 'Information',
+      message: 'Select where you want to get the image',
+      okButtonLabel: 'Gallery',
+      okClick: () => getImages(ImageSource.gallery),
+      cancelButtonLabel: 'Camera',
+      cancelClick: () => getImages(ImageSource.camera),
+    );
+  }
+
+  void getImages(ImageSource imageSource) async {
+    _noteDetailService.loadingReactiveValue.value = true;
+    final image = await ImagePicker().pickImage(source: imageSource);
+    _noteDetailService.loadingReactiveValue.value = false;
+    if (image == null) return;
+
+    final temporaryImage = File(image.path);
+    _noteDetailService.imageList.value.add(temporaryImage);
+  }
+
+  void removeImage(int index) async {
+    _noteDetailService.loadingReactiveValue.value = true;
+    _noteDetailService.imageList.value.removeAt(index);
+    _noteDetailService.loadingReactiveValue.value = false;
   }
 
   void loadNoteModel() {

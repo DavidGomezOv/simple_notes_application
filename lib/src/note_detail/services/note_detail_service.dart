@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:injectable/injectable.dart';
@@ -20,6 +21,7 @@ class NoteDetailService extends BaseReactiveService {
   final textSize = ReactiveValue<double>(18);
   final createdDate = ReactiveValue<DateTime>(DateTime.now());
   final textType = ReactiveValue<TextType>(TextType.normal);
+  final imageList = ReactiveValue<List<File?>>([]);
 
   @factoryMethod
   NoteDetailService.from(this._repository) {
@@ -31,6 +33,7 @@ class NoteDetailService extends BaseReactiveService {
       textSize,
       createdDate,
       textType,
+      imageList,
     ]);
   }
 
@@ -40,6 +43,9 @@ class NoteDetailService extends BaseReactiveService {
     isButtonAvailable.value = false;
     textSize.value = 18;
     createdDate.value = DateTime.now();
+    textType.value = TextType.normal;
+    imageList.value = [];
+    loadingReactiveValue.value = false;
   }
 
   Future<void> createNote(NoteModel noteModel) async {

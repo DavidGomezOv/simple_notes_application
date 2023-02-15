@@ -21,6 +21,7 @@ extension CustomColors on String {
   static const colorBlue = '227BB4';
   static const colorPurple = '7B3BAE';
   static const colorPink = 'AE3B7F';
+  static const colorTextDisabled = 'ADADAD';
 }
 
 extension CustomFontSize on double {
