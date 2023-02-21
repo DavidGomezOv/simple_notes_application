@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.simple_chopper_example.simple_chopper_example">
    <application
-        android:label="simple_chopper_example"
+        android:label="Simple Notes"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -16,7 +16,7 @@ class NoteDetailRepository {
   Future<void> createNote(NoteModel noteModel) async {
     final token = await SharedPreferenceHelper.getSessionToken();
     if (token != null) {
-      noteModel.userId = 'SET USER TOKEN ID';
+      noteModel.userId = await SharedPreferenceHelper.getSessionToken();
       return _datasource.createNote(noteModel);
     } else {
       noteModel.userId = Constants.localUserId;

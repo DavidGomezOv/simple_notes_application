@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:injectable/injectable.dart';
 import 'package:simple_notes_application/src/core/base/base_datasource.dart';
 import 'package:simple_notes_application/src/core/constants/constants.dart';
@@ -14,6 +13,8 @@ class HomeFirestoreSource extends BaseDatasource {
   Future<Stream<QuerySnapshot<Map<String, dynamic>>>> getNotes() async {
     await validateConnection();
     final db = FirebaseFirestore.instance;
-    return db.collection(Constants.notesCollection).snapshots();
+    return db
+        .collection(await collectionName ?? Constants.notesCollection)
+        .snapshots();
   }
 }

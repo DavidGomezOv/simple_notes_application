@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:injectable/injectable.dart';
 import 'package:simple_notes_application/src/core/base/base_datasource.dart';
 import 'package:simple_notes_application/src/core/constants/constants.dart';
@@ -14,7 +13,7 @@ class NoteDetailFirestoreSource extends BaseDatasource {
     await validateConnection();
     final db = FirebaseFirestore.instance;
     db
-        .collection(Constants.notesCollection)
+        .collection(await collectionName ?? Constants.notesCollection)
         .doc(noteModel.id)
         .set(noteModel.toJson());
   }
@@ -22,6 +21,9 @@ class NoteDetailFirestoreSource extends BaseDatasource {
   Future<void> deleteNote(String noteId) async {
     await validateConnection();
     final db = FirebaseFirestore.instance;
-    db.collection(Constants.notesCollection).doc(noteId).delete();
+    db
+        .collection(await collectionName ?? Constants.notesCollection)
+        .doc(noteId)
+        .delete();
   }
 }
