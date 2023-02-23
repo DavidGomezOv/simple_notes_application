@@ -16,7 +16,7 @@ class AlertCenterSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
         width: double.maxFinite,
-        alignment: Alignment.center,
+        alignment: Alignment.bottomCenter,
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 15),
           padding: const EdgeInsets.all(10),
@@ -68,7 +68,8 @@ class AlertCenterSheet extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 4, bottom: 2),
                     child: GestureDetector(
-                      onTap: () => completer(SheetResponse(confirmed: false)),
+                      onTap: () =>
+                          completer(SheetResponse(confirmed: true, data: 2)),
                       child: Text(
                         request.secondaryButtonTitle?.toUpperCase() ?? '',
                         style: TextStyle(
@@ -84,7 +85,8 @@ class AlertCenterSheet extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 4, bottom: 2),
                     child: GestureDetector(
-                      onTap: () => completer(SheetResponse(confirmed: true)),
+                      onTap: () =>
+                          completer(SheetResponse(confirmed: true, data: 1)),
                       child: Text(
                         request.mainButtonTitle?.toUpperCase() ?? '',
                         style: TextStyle(

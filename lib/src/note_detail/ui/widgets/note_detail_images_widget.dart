@@ -9,46 +9,102 @@ class NoteDetailImagesWidget extends ViewModelWidget<NoteDetailViewModel> {
   Widget build(BuildContext context, NoteDetailViewModel viewModel) {
     return SizedBox(
       height: 280,
-      child: ListView.builder(
+      child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        itemCount: viewModel.images.length,
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        itemBuilder: (context, index) => SizedBox(
-          width: 280,
-          height: 280,
-          child: Stack(
-            children: [
-              Align(
-                alignment: Alignment.center,
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 12),
-                  child: Image.file(
-                    viewModel.images[index]!,
-                    width: 240,
-                    height: 240,
-                    fit: BoxFit.cover,
+        child: Row(
+          children: [
+            ListView.builder(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: viewModel.remoteImages.length,
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              itemBuilder: (context, index) {
+                return SizedBox(
+                  width: 280,
+                  height: 280,
+                  child: Stack(
+                    children: [
+                      Align(
+                        alignment: Alignment.center,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 12),
+                          child: Image.network(
+                            viewModel.remoteImages[index]!.imageUrl!,
+                            width: 240,
+                            height: 240,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: MaterialButton(
+                          visualDensity: VisualDensity.compact,
+                          minWidth: 60,
+                          height: 50,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          onPressed: () =>
+                              viewModel.removeImage(index, isRemote: true),
+                          child: const Icon(
+                            Icons.cancel,
+                            color: Colors.red,
+                            size: 30,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ),
-              Align(
-                alignment: Alignment.topRight,
-                child: MaterialButton(
-                  visualDensity: VisualDensity.compact,
-                  minWidth: 60,
-                  height: 50,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
+                );
+              },
+            ),
+            ListView.builder(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: viewModel.images.length,
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              itemBuilder: (context, index) {
+                return SizedBox(
+                  width: 280,
+                  height: 280,
+                  child: Stack(
+                    children: [
+                      Align(
+                        alignment: Alignment.center,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 12),
+                          child: Image.file(
+                            viewModel.images[index]!,
+                            width: 240,
+                            height: 240,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: MaterialButton(
+                          visualDensity: VisualDensity.compact,
+                          minWidth: 60,
+                          height: 50,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          onPressed: () => viewModel.removeImage(index),
+                          child: const Icon(
+                            Icons.cancel,
+                            color: Colors.red,
+                            size: 30,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  onPressed: () => viewModel.removeImage(index),
-                  child: const Icon(
-                    Icons.cancel,
-                    color: Colors.red,
-                    size: 30,
-                  ),
-                ),
-              ),
-            ],
-          ),
+                );
+              },
+            ),
+          ],
         ),
       ),
     );

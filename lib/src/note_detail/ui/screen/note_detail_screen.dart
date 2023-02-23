@@ -30,7 +30,7 @@ class NoteDetailScreen extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         const NoteDetailTopBarWidget(),
-                        viewModel.images.isNotEmpty
+                        viewModel.images.isNotEmpty || viewModel.remoteImages.isNotEmpty
                             ? const NoteDetailImagesWidget()
                             : const SizedBox.shrink(),
                         const NoteDetailBodyWidget(),

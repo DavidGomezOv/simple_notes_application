@@ -10,7 +10,7 @@ class SignOutViewModel extends AppBaseViewModel {
     showInformativeDialog(
       title: 'Information',
       message: '¿Are you sure you want to sign out?',
-      okClick: () => doSignOut(),
+      primaryClick: () => doSignOut(),
     );
   }
 

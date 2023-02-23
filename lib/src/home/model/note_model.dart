@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:simple_notes_application/src/home/model/note_image_model.dart';
 
 part 'note_model.g.dart';
 
@@ -34,6 +35,9 @@ class NoteModel extends HiveObject {
   @HiveField(9)
   @JsonKey(name: 'userId')
   String? userId;
+  @HiveField(10)
+  @JsonKey(name: 'images')
+  List<NoteImageModel?>? images;
 
   NoteModel(
     this.id,

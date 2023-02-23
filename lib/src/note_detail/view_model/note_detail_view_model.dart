@@ -9,6 +9,7 @@ import 'package:simple_notes_application/src/core/di/app_component.dart';
 import 'package:simple_notes_application/src/core/enums/enums.dart';
 import 'package:simple_notes_application/src/core/extensions/generic_extensions.dart';
 import 'package:simple_notes_application/src/core/utils/app_dialogs.dart';
+import 'package:simple_notes_application/src/home/model/note_image_model.dart';
 import 'package:simple_notes_application/src/home/model/note_model.dart';
 import 'package:simple_notes_application/src/home/services/home_service.dart';
 import 'package:simple_notes_application/src/note_detail/services/note_detail_service.dart';
@@ -35,6 +36,9 @@ class NoteDetailViewModel extends AppBaseViewModel {
   NoteModel? get noteSelected => _homeService.noteSelectedValue.value;
 
   List<File?> get images => _noteDetailService.imageList.value;
+
+  List<NoteImageModel?> get remoteImages =>
+      _noteDetailService.remoteImageList.value;
 
   TextEditingController titleController = TextEditingController();
   TextEditingController contentController = TextEditingController();
@@ -67,10 +71,10 @@ class NoteDetailViewModel extends AppBaseViewModel {
     showInformativeDialog(
       title: 'Information',
       message: 'Select where you want to get the image',
-      okButtonLabel: 'Gallery',
-      okClick: () => getImages(ImageSource.gallery),
-      cancelButtonLabel: 'Camera',
-      cancelClick: () => getImages(ImageSource.camera),
+      primaryButtonLabel: 'Gallery',
+      primaryClick: () => getImages(ImageSource.gallery),
+      secondaryButtonLabel: 'Camera',
+      secondaryClick: () => getImages(ImageSource.camera),
     );
   }
 
@@ -82,11 +86,28 @@ class NoteDetailViewModel extends AppBaseViewModel {
 
     final temporaryImage = File(image.path);
     _noteDetailService.imageList.value.add(temporaryImage);
+    if (titleController.text.isNotEmpty && contentController.text.isNotEmpty) {
+      _noteDetailService.isButtonAvailable.value = true;
+    } else {
+      _noteDetailService.isButtonAvailable.value = false;
+    }
   }
 
-  void removeImage(int index) async {
+  void removeImage(int index, {bool isRemote = false}) async {
     _noteDetailService.loadingReactiveValue.value = true;
-    _noteDetailService.imageList.value.removeAt(index);
+    if (isRemote) {
+      _noteDetailService.remoteImageList.value.removeAt(index);
+      if (noteSelected!.images != _noteDetailService.remoteImageList.value) {
+        _noteDetailService.isButtonAvailable.value = true;
+      } else {
+        _noteDetailService.isButtonAvailable.value = false;
+      }
+    } else {
+      _noteDetailService.imageList.value.removeAt(index);
+      if (_noteDetailService.imageList.value.isEmpty) {
+        _noteDetailService.isButtonAvailable.value = false;
+      }
+    }
     _noteDetailService.loadingReactiveValue.value = false;
   }
 
@@ -104,6 +125,15 @@ class NoteDetailViewModel extends AppBaseViewModel {
     _noteDetailService.isNotePinned.value = noteSelected?.isPinned ?? false;
     _noteDetailService.textType.value =
         stringToEnum(noteSelected?.textType) ?? TextType.normal;
+    loadNoteImages();
+  }
+
+  void loadNoteImages() {
+    noteSelected?.images?.forEach((element) {
+      if (element != null) {
+        _noteDetailService.remoteImageList.value.add(element);
+      }
+    });
   }
 
   void initTimer() {
@@ -138,7 +168,15 @@ class NoteDetailViewModel extends AppBaseViewModel {
   }
 
   void validateNewNote() {
-    if (titleController.text.isNotEmpty && contentController.text.isNotEmpty) {
+    if (_noteDetailService.imageList.value.isNotEmpty) {
+      if (titleController.text.isNotEmpty &&
+          contentController.text.isNotEmpty) {
+        _noteDetailService.isButtonAvailable.value = true;
+      } else {
+        _noteDetailService.isButtonAvailable.value = false;
+      }
+    } else if (titleController.text.isNotEmpty &&
+        contentController.text.isNotEmpty) {
       _noteDetailService.isButtonAvailable.value = true;
     } else {
       _noteDetailService.isButtonAvailable.value = false;
@@ -184,7 +222,7 @@ class NoteDetailViewModel extends AppBaseViewModel {
     showInformativeDialog(
       title: 'Information',
       message: '¿Are you sure you want to delete this note?',
-      okClick: () {
+      primaryClick: () {
         _noteDetailService
             .deleteNote(noteSelected!.id!)
             .then((value) => appNavigator.back())
@@ -212,7 +250,8 @@ class NoteDetailViewModel extends AppBaseViewModel {
       textType.asString(),
       textSize,
     );
-    _noteDetailService.createNote(note).then((value) {
+    note.images = _noteDetailService.remoteImageList.value;
+    _noteDetailService.createNote(note, images).then((value) {
       if (needGoBack) appNavigator.back();
     }).catchError((error) {
       handleApiResponse(error.toString());

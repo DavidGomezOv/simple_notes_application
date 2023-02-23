@@ -1,6 +1,7 @@
 extension Constants on String {
   static const notesCollection = 'NOTES';
   static const usersCollection = 'USERS';
+  static const imagesFolder = 'IMAGES';
   static const isGridViewKey = 'GRIDVIEW';
   static const localUserId = 'LOCAL_USER_ID';
 }

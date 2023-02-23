@@ -25,13 +25,15 @@ class NoteModelAdapter extends TypeAdapter<NoteModel> {
       fields[6] as bool?,
       fields[7] as String?,
       fields[8] as double?,
-    )..userId = fields[9] as String?;
+    )
+      ..userId = fields[9] as String?
+      ..images = (fields[10] as List?)?.cast<NoteImageModel?>();
   }
 
   @override
   void write(BinaryWriter writer, NoteModel obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(10)
       ..writeByte(1)
       ..write(obj.id)
       ..writeByte(2)
@@ -49,7 +51,9 @@ class NoteModelAdapter extends TypeAdapter<NoteModel> {
       ..writeByte(8)
       ..write(obj.textSize)
       ..writeByte(9)
-      ..write(obj.userId);
+      ..write(obj.userId)
+      ..writeByte(10)
+      ..write(obj.images);
   }
 
   @override
@@ -76,7 +80,13 @@ NoteModel _$NoteModelFromJson(Map<String, dynamic> json) => NoteModel(
       json['isPinned'] as bool?,
       json['textType'] as String?,
       (json['textSize'] as num?)?.toDouble(),
-    )..userId = json['userId'] as String?;
+    )
+      ..userId = json['userId'] as String?
+      ..images = (json['images'] as List<dynamic>?)
+          ?.map((e) => e == null
+              ? null
+              : NoteImageModel.fromJson(e as Map<String, dynamic>))
+          .toList();
 
 Map<String, dynamic> _$NoteModelToJson(NoteModel instance) => <String, dynamic>{
       'id': instance.id,
@@ -88,4 +98,5 @@ Map<String, dynamic> _$NoteModelToJson(NoteModel instance) => <String, dynamic>{
       'textType': instance.textType,
       'textSize': instance.textSize,
       'userId': instance.userId,
+      'images': instance.images?.map((e) => e?.toJson()).toList(),
     };

@@ -6,6 +6,7 @@ import 'package:simple_notes_application/src/core/base/base_reactive_service.dar
 import 'package:simple_notes_application/src/core/constants/constants.dart';
 import 'package:simple_notes_application/src/core/enums/enums.dart';
 import 'package:simple_notes_application/src/core/extensions/generic_extensions.dart';
+import 'package:simple_notes_application/src/home/model/note_image_model.dart';
 import 'package:simple_notes_application/src/home/model/note_model.dart';
 import 'package:simple_notes_application/src/note_detail/api/respository/note_detail_repository.dart';
 import 'package:stacked/stacked.dart';
@@ -22,6 +23,7 @@ class NoteDetailService extends BaseReactiveService {
   final createdDate = ReactiveValue<DateTime>(DateTime.now());
   final textType = ReactiveValue<TextType>(TextType.normal);
   final imageList = ReactiveValue<List<File?>>([]);
+  final remoteImageList = ReactiveValue<List<NoteImageModel?>>([]);
 
   @factoryMethod
   NoteDetailService.from(this._repository) {
@@ -34,6 +36,7 @@ class NoteDetailService extends BaseReactiveService {
       createdDate,
       textType,
       imageList,
+      remoteImageList,
     ]);
   }
 
@@ -45,13 +48,14 @@ class NoteDetailService extends BaseReactiveService {
     createdDate.value = DateTime.now();
     textType.value = TextType.normal;
     imageList.value = [];
+    remoteImageList.value = [];
     loadingReactiveValue.value = false;
   }
 
-  Future<void> createNote(NoteModel noteModel) async {
+  Future<void> createNote(NoteModel noteModel, List<File?> images) async {
     loadingReactiveValue.value = true;
     return _repository
-        .createNote(noteModel)
+        .createNote(noteModel, images)
         .whenComplete(() => loadingReactiveValue.value = false);
   }
 

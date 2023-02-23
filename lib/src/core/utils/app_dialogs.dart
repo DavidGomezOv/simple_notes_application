@@ -20,23 +20,26 @@ void showErrorSheet(
 void showInformativeDialog({
   required String title,
   required String message,
-  String okButtonLabel = 'Accept',
-  String cancelButtonLabel = 'Cancel',
-  Function? okClick,
-  Function? cancelClick,
+  String primaryButtonLabel = 'Accept',
+  String secondaryButtonLabel = 'Cancel',
+  Function? primaryClick,
+  Function? secondaryClick,
 }) async {
   final sheetResponse = await bottomSheetService.showCustomSheet(
     variant: DialogType.informative,
     title: title,
     description: message,
-    mainButtonTitle: okButtonLabel,
-    secondaryButtonTitle: cancelButtonLabel,
-    isScrollControlled: true,
-    barrierDismissible: false,
+    mainButtonTitle: primaryButtonLabel,
+    secondaryButtonTitle: secondaryButtonLabel,
   );
   if (sheetResponse?.confirmed == true) {
-    okClick?.call();
-  } else {
-    cancelClick?.call();
+    switch (sheetResponse!.data) {
+      case 1:
+        primaryClick?.call();
+        break;
+      case 2:
+        secondaryClick?.call();
+        break;
+    }
   }
 }
