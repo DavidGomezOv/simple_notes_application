@@ -22,7 +22,7 @@ class NoteDetailRepository {
       return _datasource.createNote(noteModel, images);
     } else {
       noteModel.userId = Constants.localUserId;
-      return _localDatasource.createLocalNote(noteModel);
+      return _localDatasource.createLocalNote(noteModel, images);
     }
   }
 

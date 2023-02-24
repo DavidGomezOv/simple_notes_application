@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:simple_notes_application/src/note_detail/ui/widgets/note_detail_image_remove_widget.dart';
 import 'package:simple_notes_application/src/note_detail/view_model/note_detail_view_model.dart';
 import 'package:stacked/stacked.dart';
 
@@ -26,34 +29,30 @@ class NoteDetailImagesWidget extends ViewModelWidget<NoteDetailViewModel> {
                     children: [
                       Align(
                         alignment: Alignment.center,
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 12),
-                          child: Image.network(
-                            viewModel.remoteImages[index]!.imageUrl!,
-                            width: 240,
-                            height: 240,
-                            fit: BoxFit.cover,
+                        child: GestureDetector(
+                          onTap: () => viewModel.onImageTap(
+                              viewModel.remoteImages[index]!.imageUrl!),
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 12),
+                            child: viewModel.remoteImages[index]!.imageUrl!
+                                    .contains('https')
+                                ? Image.network(
+                                    viewModel.remoteImages[index]!.imageUrl!,
+                                    width: 240,
+                                    height: 240,
+                                    fit: BoxFit.cover,
+                                  )
+                                : Image.file(
+                                    File(viewModel
+                                        .remoteImages[index]!.imageUrl!),
+                                    width: 240,
+                                    height: 240,
+                                    fit: BoxFit.cover,
+                                  ),
                           ),
                         ),
                       ),
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: MaterialButton(
-                          visualDensity: VisualDensity.compact,
-                          minWidth: 60,
-                          height: 50,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          onPressed: () =>
-                              viewModel.removeImage(index, isRemote: true),
-                          child: const Icon(
-                            Icons.cancel,
-                            color: Colors.red,
-                            size: 30,
-                          ),
-                        ),
-                      ),
+                      NoteDetailImageRemoveWidget(index: index),
                     ],
                   ),
                 );
@@ -72,33 +71,21 @@ class NoteDetailImagesWidget extends ViewModelWidget<NoteDetailViewModel> {
                     children: [
                       Align(
                         alignment: Alignment.center,
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 12),
-                          child: Image.file(
-                            viewModel.images[index]!,
-                            width: 240,
-                            height: 240,
-                            fit: BoxFit.cover,
+                        child: GestureDetector(
+                          onTap: () => viewModel
+                              .onImageTap(viewModel.images[index]!.path),
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 12),
+                            child: Image.file(
+                              viewModel.images[index]!,
+                              width: 240,
+                              height: 240,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ),
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: MaterialButton(
-                          visualDensity: VisualDensity.compact,
-                          minWidth: 60,
-                          height: 50,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          onPressed: () => viewModel.removeImage(index),
-                          child: const Icon(
-                            Icons.cancel,
-                            color: Colors.red,
-                            size: 30,
-                          ),
-                        ),
-                      ),
+                      NoteDetailImageRemoveWidget(index: index),
                     ],
                   ),
                 );

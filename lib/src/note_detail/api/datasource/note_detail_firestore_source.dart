@@ -17,16 +17,14 @@ class NoteDetailFirestoreSource extends BaseDatasource {
     await validateConnection();
     bool addImages = false;
     await saveNoteData(noteModel)
-        .then(
-          (value) => addImages = true,
-        )
-        .onError((error, stackTrace) => throw (error.toString()));
+        .then((value) => addImages = true)
+        .onError((error, _) => throw (error.toString()));
     if (addImages) {
       noteModel.images ??= [];
       await saveNoteImages(noteModel, images);
       await saveNoteData(noteModel)
           .onError((error, stackTrace) => throw (error.toString()));
-      await deleteImages(noteModel);
+      await deleteRemoteImages(noteModel);
     }
   }
 
@@ -61,7 +59,7 @@ class NoteDetailFirestoreSource extends BaseDatasource {
     }
   }
 
-  Future<void> deleteImages(NoteModel noteModel) async {
+  Future<void> deleteRemoteImages(NoteModel noteModel) async {
     if (noteModel.images == null) return;
     final storage = FirebaseStorage.instance
         .ref('${Constants.imagesFolder}/${noteModel.id}');
@@ -78,16 +76,30 @@ class NoteDetailFirestoreSource extends BaseDatasource {
     }
 
     for (final image in imagesToDelete) {
-      await storage.child(image).delete();
+      await storage
+          .child(image)
+          .delete()
+          .onError((error, _) => throw (error.toString()));
     }
   }
 
   Future<void> deleteNote(String noteId) async {
     await validateConnection();
     final firebase = FirebaseFirestore.instance;
-    firebase
+    await firebase
         .collection(await collectionName ?? Constants.notesCollection)
         .doc(noteId)
-        .delete();
+        .delete()
+        .onError((error, _) => throw (error.toString()));
+    final storage =
+        FirebaseStorage.instance.ref('${Constants.imagesFolder}/$noteId');
+    final listResult = await storage.listAll();
+
+    for (final image in listResult.items) {
+      await storage
+          .child(image.name)
+          .delete()
+          .onError((error, _) => throw (error.toString()));
+    }
   }
 }

@@ -80,12 +80,20 @@ class NoteDetailViewModel extends AppBaseViewModel {
 
   void getImages(ImageSource imageSource) async {
     _noteDetailService.loadingReactiveValue.value = true;
-    final image = await ImagePicker().pickImage(source: imageSource);
+    late List<XFile?> image = [];
+    if (imageSource == ImageSource.gallery) {
+      image = await ImagePicker().pickMultiImage();
+    } else {
+      image = [await ImagePicker().pickImage(source: imageSource)];
+    }
     _noteDetailService.loadingReactiveValue.value = false;
-    if (image == null) return;
+    if (image.isEmpty) return;
 
-    final temporaryImage = File(image.path);
-    _noteDetailService.imageList.value.add(temporaryImage);
+    for (var element in image) {
+      if (element == null) continue;
+      _noteDetailService.imageList.value.add(File(element.path));
+    }
+
     if (titleController.text.isNotEmpty && contentController.text.isNotEmpty) {
       _noteDetailService.isButtonAvailable.value = true;
     } else {
@@ -256,5 +264,9 @@ class NoteDetailViewModel extends AppBaseViewModel {
     }).catchError((error) {
       handleApiResponse(error.toString());
     });
+  }
+
+  void onImageTap(String imagePath) {
+    //TODO Implementing page to see image in complete screen
   }
 }

@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'note_image_model.g.dart';
 
-@HiveType(typeId: 0)
+@HiveType(typeId: 1)
 @JsonSerializable(explicitToJson: true)
 class NoteImageModel extends HiveObject {
   @HiveField(1)

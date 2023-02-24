@@ -8,7 +8,7 @@ part of 'note_image_model.dart';
 
 class NoteImageModelAdapter extends TypeAdapter<NoteImageModel> {
   @override
-  final int typeId = 0;
+  final int typeId = 1;
 
   @override
   NoteImageModel read(BinaryReader reader) {

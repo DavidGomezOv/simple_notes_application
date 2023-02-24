@@ -8,6 +8,7 @@ import 'package:simple_notes_application/src/core/di/app_component.dart';
 import 'package:simple_notes_application/src/core/enums/enums.dart';
 import 'package:simple_notes_application/src/core/widgets/alert_bottom_sheet.dart';
 import 'package:simple_notes_application/src/core/widgets/alert_center_sheet.dart';
+import 'package:simple_notes_application/src/home/model/note_image_model.dart';
 import 'package:simple_notes_application/src/home/model/note_model.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -37,6 +38,7 @@ void _setupBottomSheetUi() {
 void _initHive() async {
   await Hive.initFlutter();
   Hive.registerAdapter(NoteModelAdapter());
+  Hive.registerAdapter(NoteImageModelAdapter());
 }
 
 final appNavigatorKey = StackedService.navigatorKey;
