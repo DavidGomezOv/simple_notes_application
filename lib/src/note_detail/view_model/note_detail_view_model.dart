@@ -268,7 +268,10 @@ class NoteDetailViewModel extends AppBaseViewModel {
   }
 
   void onImageTap(String imagePath, int position) {
-    _noteDetailService.imageSelected.value = position;
-    appNavigator.push(Routes.imagesDetail);
+    if (noteSelected != null &&
+        (noteSelected!.images != null && noteSelected!.images!.isNotEmpty)) {
+      _noteDetailService.imageSelected.value = position;
+      appNavigator.push(Routes.imagesDetail);
+    }
   }
 }
