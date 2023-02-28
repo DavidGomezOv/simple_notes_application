@@ -1,6 +1,6 @@
 # simple_chopper_example
 
-A new Flutter project with chopper lib and stacked architecture
+A new Flutter project with Firebase and stacked architecture
 
 ## Getting Started
 

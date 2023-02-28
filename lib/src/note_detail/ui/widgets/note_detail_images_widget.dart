@@ -31,7 +31,9 @@ class NoteDetailImagesWidget extends ViewModelWidget<NoteDetailViewModel> {
                         alignment: Alignment.center,
                         child: GestureDetector(
                           onTap: () => viewModel.onImageTap(
-                              viewModel.remoteImages[index]!.imageUrl!),
+                            viewModel.remoteImages[index]!.imageUrl!,
+                            index,
+                          ),
                           child: Padding(
                             padding: const EdgeInsets.only(right: 12),
                             child: viewModel.remoteImages[index]!.imageUrl!
@@ -72,8 +74,10 @@ class NoteDetailImagesWidget extends ViewModelWidget<NoteDetailViewModel> {
                       Align(
                         alignment: Alignment.center,
                         child: GestureDetector(
-                          onTap: () => viewModel
-                              .onImageTap(viewModel.images[index]!.path),
+                          onTap: () => viewModel.onImageTap(
+                            viewModel.images[index]!.path,
+                            index,
+                          ),
                           child: Padding(
                             padding: const EdgeInsets.only(right: 12),
                             child: Image.file(

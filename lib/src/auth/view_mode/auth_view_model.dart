@@ -3,6 +3,7 @@ import 'package:simple_notes_application/src/auth/model/login_model_request.dart
 import 'package:simple_notes_application/src/auth/model/register_model_request.dart';
 import 'package:simple_notes_application/src/auth/services/auth_service.dart';
 import 'package:simple_notes_application/src/core/base/base_view_model.dart';
+import 'package:simple_notes_application/src/core/constants/constants.dart';
 import 'package:simple_notes_application/src/core/di/app_component.dart';
 import 'package:stacked/stacked.dart';
 
@@ -42,10 +43,10 @@ class AuthViewModel extends AppBaseViewModel {
     tabController?.addListener(() {
       if (tabController!.index == 0) {
         isLogin = true;
-        _authService.buttonLabel.value = 'Get in';
+        _authService.buttonLabel.value = Messages.loginButtonLabel;
       } else {
         isLogin = false;
-        _authService.buttonLabel.value = 'Sign up';
+        _authService.buttonLabel.value = Messages.registerButtonLabel;
       }
     });
   }

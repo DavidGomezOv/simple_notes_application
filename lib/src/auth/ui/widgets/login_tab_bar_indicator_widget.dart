@@ -27,10 +27,10 @@ class LoginTabBarIndicatorWidget extends ViewModelWidget<AuthViewModel> {
         controller: viewModel.tabController,
         tabs: const [
           Tab(
-            text: 'Login',
+            text: Messages.loginTabLabel,
           ),
           Tab(
-            text: 'Register',
+            text: Messages.registerTabLabel,
           ),
         ],
       ),

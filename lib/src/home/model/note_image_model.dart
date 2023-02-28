@@ -22,4 +22,9 @@ class NoteImageModel extends HiveObject {
       _$NoteImageModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$NoteImageModelToJson(this);
+
+  @override
+  String toString() {
+    return 'NoteImageModel{imageUrl: $imageUrl, imageName: $imageName}';
+  }
 }

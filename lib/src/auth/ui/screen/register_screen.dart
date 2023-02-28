@@ -24,7 +24,7 @@ class RegisterScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     LoginTextFieldWidget(
-                      hintText: 'Name ',
+                      hintText: Messages.nameHint,
                       controller: viewModel.controllerRegisterName,
                       inputType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
@@ -34,7 +34,7 @@ class RegisterScreen extends StatelessWidget {
                       height: 10,
                     ),
                     LoginTextFieldWidget(
-                      hintText: 'Email',
+                      hintText: Messages.emailHint,
                       controller: viewModel.controllerRegisterEmail,
                       inputType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
@@ -44,7 +44,7 @@ class RegisterScreen extends StatelessWidget {
                       height: 10,
                     ),
                     LoginTextFieldWidget(
-                      hintText: 'Password',
+                      hintText: Messages.passwordHint,
                       controller: viewModel.controllerRegisterPassword,
                       obscureText: true,
                       inputType: TextInputType.visiblePassword,

@@ -19,4 +19,9 @@ class RegisterModelRequest {
       _$RegisterModelRequestFromJson(json);
 
   Map<String, dynamic> toJson() => _$RegisterModelRequestToJson(this);
+
+  @override
+  String toString() {
+    return 'RegisterModelRequest{name: $name, email: $email, password: $password}';
+  }
 }

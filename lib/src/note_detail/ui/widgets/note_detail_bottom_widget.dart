@@ -163,7 +163,7 @@ class NoteDetailBottomWidget extends ViewModelWidget<NoteDetailViewModel> {
                     ? null
                     : () => viewModel.saveNote(),
                 child: Text(
-                  viewModel.noteSelected == null ? 'Save' : 'Edit',
+                  viewModel.noteSelected == null ? Messages.saveLabel : Messages.editLabel,
                   style: TextStyle(color: color),
                 ),
               ),

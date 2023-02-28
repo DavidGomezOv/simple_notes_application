@@ -32,7 +32,7 @@ class LoginTopBarWidget extends ViewModelWidget<AuthViewModel> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const [
               Text(
-                'Welcome!',
+                Messages.welcomeLabel,
                 style: TextStyle(
                   fontSize: 32,
                   color: Colors.white,
@@ -43,7 +43,7 @@ class LoginTopBarWidget extends ViewModelWidget<AuthViewModel> {
                 height: 10,
               ),
               Text(
-                "Don't run the risk of losing your information, log in or register.",
+                Messages.registerInvitationLabel,
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.white,

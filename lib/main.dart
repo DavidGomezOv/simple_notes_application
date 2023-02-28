@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Chopper App Demo',
+      title: 'Simple Notes Application',
       initialRoute: Routes.home,
       navigatorKey: appNavigatorKey,
       routes: Routes.routes,

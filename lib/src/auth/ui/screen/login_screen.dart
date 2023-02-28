@@ -26,7 +26,7 @@ class LoginScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     LoginTextFieldWidget(
-                      hintText: 'Email',
+                      hintText: Messages.emailHint,
                       inputType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
                       onChanged: viewModel.onEmailTextChanged,
@@ -35,7 +35,7 @@ class LoginScreen extends StatelessWidget {
                       height: 10,
                     ),
                     LoginTextFieldWidget(
-                      hintText: 'Password',
+                      hintText: Messages.passwordHint,
                       obscureText: true,
                       inputType: TextInputType.visiblePassword,
                       textInputAction: TextInputAction.done,

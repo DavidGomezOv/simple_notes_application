@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:simple_notes_application/routes.dart';
 import 'package:simple_notes_application/src/core/base/base_view_model.dart';
 import 'package:simple_notes_application/src/core/constants/constants.dart';
 import 'package:simple_notes_application/src/core/di/app_component.dart';
@@ -69,11 +70,11 @@ class NoteDetailViewModel extends AppBaseViewModel {
 
   Future pickImages() async {
     showInformativeDialog(
-      title: 'Information',
-      message: 'Select where you want to get the image',
-      primaryButtonLabel: 'Gallery',
+      title: Messages.selectImagesTitle,
+      message: Messages.selectImagesMessages,
+      primaryButtonLabel: Messages.galleryLabel,
       primaryClick: () => getImages(ImageSource.gallery),
-      secondaryButtonLabel: 'Camera',
+      secondaryButtonLabel: Messages.cameraLabel,
       secondaryClick: () => getImages(ImageSource.camera),
     );
   }
@@ -228,8 +229,8 @@ class NoteDetailViewModel extends AppBaseViewModel {
 
   void deleteNote() {
     showInformativeDialog(
-      title: 'Information',
-      message: '¿Are you sure you want to delete this note?',
+      title: Messages.informationLabel,
+      message: Messages.deleteNoteMessage,
       primaryClick: () {
         _noteDetailService
             .deleteNote(noteSelected!.id!)
@@ -266,7 +267,8 @@ class NoteDetailViewModel extends AppBaseViewModel {
     });
   }
 
-  void onImageTap(String imagePath) {
-    //TODO Implementing page to see image in complete screen
+  void onImageTap(String imagePath, int position) {
+    _noteDetailService.imageSelected.value = position;
+    appNavigator.push(Routes.imagesDetail);
   }
 }

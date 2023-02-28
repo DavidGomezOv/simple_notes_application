@@ -1,3 +1,4 @@
+import 'package:simple_notes_application/src/core/constants/constants.dart';
 import 'package:simple_notes_application/src/core/di/app_component.dart';
 import 'package:simple_notes_application/src/core/enums/enums.dart';
 
@@ -10,7 +11,7 @@ void showErrorSheet(
   await bottomSheetService.showCustomSheet(
     variant: DialogType.error,
     description: message,
-    mainButtonTitle: 'Accept',
+    mainButtonTitle: Messages.acceptLabel,
     isScrollControlled: true,
     barrierDismissible: false,
   );
@@ -20,8 +21,8 @@ void showErrorSheet(
 void showInformativeDialog({
   required String title,
   required String message,
-  String primaryButtonLabel = 'Accept',
-  String secondaryButtonLabel = 'Cancel',
+  String primaryButtonLabel = Messages.acceptLabel,
+  String secondaryButtonLabel = Messages.cancelLabel,
   Function? primaryClick,
   Function? secondaryClick,
 }) async {

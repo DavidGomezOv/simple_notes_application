@@ -51,7 +51,9 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                             ],
                           ),
                         ),
-                        const SizedBox(height: 30,),
+                        const SizedBox(
+                          height: 30,
+                        ),
                         Padding(
                           padding: const EdgeInsets.only(bottom: 30, right: 14),
                           child: Align(
@@ -78,15 +80,16 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                     ),
                   ),
                   Visibility(
-                      visible: viewModel.loading,
-                      child: Container(
-                        width: double.maxFinite,
-                        height: double.maxFinite,
-                        color: Colors.black.withAlpha(70),
-                        child: const Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                      )),
+                    visible: viewModel.loading,
+                    child: Container(
+                      width: double.maxFinite,
+                      height: double.maxFinite,
+                      color: Colors.black.withAlpha(70),
+                      child: const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

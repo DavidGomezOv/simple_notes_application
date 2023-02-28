@@ -29,7 +29,7 @@ class HomeScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     HomeTopBarWidget(
-                      title: 'Search notes here',
+                      title: Messages.searchNotesLabel,
                       textColor: HexColor.fromHex(CustomColors.colorWhite54),
                       iconData: Icon(
                         viewModel.isGridView
@@ -47,7 +47,7 @@ class HomeScreen extends StatelessWidget {
                                 children: [
                                   Center(
                                     child: Text(
-                                      'There no notes, save one now.',
+                                      Messages.noNotesLabel,
                                       style: TextStyle(
                                         color: HexColor.fromHex(
                                             CustomColors.colorWhite54),
