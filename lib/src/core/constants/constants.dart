@@ -30,7 +30,19 @@ extension Messages on String {
   static const galleryLabel = 'Gallery';
   static const cameraLabel = 'Camera';
   static const informationLabel = 'Information';
-  static const deleteNoteMessage = '¿Are you sure you want to delete this note?';
+  static const providePermissionMessage = 'You need to provide the permission';
+  static const deleteNoteMessage =
+      '¿Are you sure you want to delete this note?';
+  static const enterAllInformationMessage = 'Please enter all the information';
+  static const authenticateSuccessfullyMessage = 'Authenticated Successfully';
+  static const singOutConfirmationMessage =
+      '¿Are you sure you want to sign out?';
+  static const downloadImagesOptionMessages =
+      '¿You want to download only this image or all the images?';
+  static const downloadImageConfirmation =
+      'Image downloaded in Downloads folder';
+  static const downloadThisImage = 'Only this';
+  static const downloadAllImages = 'All Images';
   static const noteDetailImageTitle = 'Images';
 }
 

@@ -9,3 +9,8 @@ enum DialogType {
   error,
   informative,
 }
+
+enum DownloadType {
+  one,
+  all,
+}

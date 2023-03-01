@@ -50,7 +50,7 @@ class NoteDetailViewModel extends AppBaseViewModel {
 
   final BuildContext context;
 
-  NoteDetailViewModel(this.context) {
+  NoteDetailViewModel(this.context) : super(context) {
     _noteDetailService.resetValues();
     loadNoteModel();
     initTimer();

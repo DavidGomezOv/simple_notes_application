@@ -14,7 +14,7 @@ import 'package:simple_notes_application/src/auth/api/repository/auth_repository
 import 'package:simple_notes_application/src/auth/services/auth_service.dart'
     as _i6;
 import 'package:simple_notes_application/src/core/di/helper_module.dart'
-    as _i16;
+    as _i19;
 import 'package:simple_notes_application/src/core/utils/app_navigator.dart'
     as _i3;
 import 'package:simple_notes_application/src/home/api/datasource/home_firestore_source.dart'
@@ -33,6 +33,12 @@ import 'package:simple_notes_application/src/note_detail/api/respository/note_de
     as _i14;
 import 'package:simple_notes_application/src/note_detail/services/note_detail_service.dart'
     as _i15;
+import 'package:simple_notes_application/src/note_images_detail/api/datasource/note_images_detail_firestore_source.dart'
+    as _i16;
+import 'package:simple_notes_application/src/note_images_detail/api/repository/note_images_detail_repository.dart'
+    as _i17;
+import 'package:simple_notes_application/src/note_images_detail/services/note_images_detail_service.dart'
+    as _i18;
 import 'package:stacked_services/stacked_services.dart' as _i7;
 
 /// ignore_for_file: unnecessary_lambdas
@@ -77,11 +83,19 @@ extension GetItInjectableX on _i1.GetIt {
         ));
     gh.lazySingleton<_i15.NoteDetailService>(
         () => _i15.NoteDetailService.from(gh<_i14.NoteDetailRepository>()));
+    gh.lazySingleton<_i16.NoteImagesDetailFirestoreSource>(
+        () => _i16.NoteImagesDetailFirestoreSource.from());
+    gh.factory<_i17.NoteImagesDetailRepository>(() =>
+        _i17.NoteImagesDetailRepository.from(
+            gh<_i16.NoteImagesDetailFirestoreSource>()));
+    gh.lazySingleton<_i18.NoteImagesDetailService>(() =>
+        _i18.NoteImagesDetailService.from(
+            gh<_i17.NoteImagesDetailRepository>()));
     return this;
   }
 }
 
-class _$HelperModule extends _i16.HelperModule {
+class _$HelperModule extends _i19.HelperModule {
   @override
   _i7.BottomSheetService get bottomSheetService => _i7.BottomSheetService();
   @override

@@ -31,7 +31,7 @@ class AuthViewModel extends AppBaseViewModel {
 
   bool isLogin = true;
 
-  AuthViewModel(this.context);
+  AuthViewModel(this.context) : super(context);
 
   @override
   List<ListenableServiceMixin> get listenableServices => [
@@ -84,7 +84,7 @@ class AuthViewModel extends AppBaseViewModel {
             loginModelRequest.password!.isNotEmpty)) {
       return true;
     }
-    handleApiResponse('Please enter all the information');
+    handleApiResponse(Messages.enterAllInformationMessage);
     return false;
   }
 
@@ -97,7 +97,7 @@ class AuthViewModel extends AppBaseViewModel {
             registerModelRequest.password!.isNotEmpty)) {
       return true;
     }
-    handleApiResponse('Please enter all the information');
+    handleApiResponse(Messages.enterAllInformationMessage);
     return false;
   }
 
@@ -114,8 +114,7 @@ class AuthViewModel extends AppBaseViewModel {
     _authService.doLogin(loginModelRequest).then((value) {
       if (value != null) {
         FocusScope.of(context).requestFocus(FocusNode());
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Authenticated Successfully')));
+        showSnackBar(Messages.authenticateSuccessfullyMessage);
         appNavigator.back();
       }
     }).catchError((error) {
@@ -128,8 +127,7 @@ class AuthViewModel extends AppBaseViewModel {
     _authService.register(registerModelRequest).then((value) {
       if (value != null) {
         FocusScope.of(context).requestFocus(FocusNode());
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Authenticated Successfully')));
+        showSnackBar(Messages.authenticateSuccessfullyMessage);
         appNavigator.back();
       }
     }).catchError((error) {

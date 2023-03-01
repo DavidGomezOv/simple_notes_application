@@ -15,7 +15,7 @@ class NoteImagesDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<NoteImagesDetailViewModel>.reactive(
-      viewModelBuilder: () => NoteImagesDetailViewModel(),
+      viewModelBuilder: () => NoteImagesDetailViewModel(context),
       builder: (context, viewModel, child) => SafeArea(
         child: Scaffold(
           appBar: AppBar(
@@ -57,6 +57,17 @@ class NoteImagesDetailScreen extends StatelessWidget {
                 ),
               ),
               const NoteImagesListDotsWidget(),
+              Visibility(
+                visible: viewModel.loading,
+                child: Container(
+                  width: double.maxFinite,
+                  height: double.maxFinite,
+                  color: Colors.black.withAlpha(70),
+                  child: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
+              ),
             ],
           ),
         ),

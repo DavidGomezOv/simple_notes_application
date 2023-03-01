@@ -29,7 +29,7 @@ class HomeViewModel extends AppBaseViewModel {
 
   //TODO IMPLEMENT SERVICE TO HANDLE NETWORK STATE CHANGES
 
-  HomeViewModel(this.context) {
+  HomeViewModel(this.context) : super(context) {
     getGridViewValue();
     getNotes();
     controllerSearch.addListener(() {

@@ -10,7 +10,7 @@ class SignOutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<SignOutViewModel>.reactive(
-      viewModelBuilder: () => SignOutViewModel(),
+      viewModelBuilder: () => SignOutViewModel(context),
       builder: (context, viewModel, child) => SafeArea(
         child: Scaffold(
           body: Container(
