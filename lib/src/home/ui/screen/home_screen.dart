@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:simple_notes_application/src/core/constants/constants.dart';
+import 'package:simple_notes_application/src/core/constants/strings.dart';
 import 'package:simple_notes_application/src/core/extensions/generic_extensions.dart';
-import 'package:simple_notes_application/src/home/ui/widgets/floating_action_button.dart';
 import 'package:simple_notes_application/src/home/ui/widgets/grid_notes_widget.dart';
 import 'package:simple_notes_application/src/home/ui/widgets/home_top_bar_widget.dart';
 import 'package:simple_notes_application/src/home/view_model/home_view_model.dart';
@@ -12,6 +12,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppStrings().setContext(context);
     return ViewModelBuilder<HomeViewModel>.reactive(
       viewModelBuilder: () => HomeViewModel(context),
       builder: (context, viewModel, child) => SafeArea(
@@ -29,7 +30,7 @@ class HomeScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     HomeTopBarWidget(
-                      title: Messages.searchNotesLabel,
+                      title: AppStrings().searchNotesLabel,
                       textColor: HexColor.fromHex(CustomColors.colorWhite54),
                       iconData: Icon(
                         viewModel.isGridView
@@ -47,7 +48,7 @@ class HomeScreen extends StatelessWidget {
                                 children: [
                                   Center(
                                     child: Text(
-                                      Messages.noNotesLabel,
+                                      AppStrings().noNotesLabel,
                                       style: TextStyle(
                                         color: HexColor.fromHex(
                                             CustomColors.colorWhite54),

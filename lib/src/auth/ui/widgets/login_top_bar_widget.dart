@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:simple_notes_application/src/auth/view_mode/auth_view_model.dart';
 import 'package:simple_notes_application/src/core/constants/constants.dart';
+import 'package:simple_notes_application/src/core/constants/strings.dart';
 import 'package:simple_notes_application/src/core/extensions/generic_extensions.dart';
 import 'package:stacked/stacked.dart';
 
@@ -30,21 +31,21 @@ class LoginTopBarWidget extends ViewModelWidget<AuthViewModel> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               Text(
-                Messages.welcomeLabel,
-                style: TextStyle(
+                AppStrings().welcomeLabel,
+                style: const TextStyle(
                   fontSize: 32,
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Text(
-                Messages.registerInvitationLabel,
-                style: TextStyle(
+                AppStrings().registerInvitationLabel,
+                style: const TextStyle(
                   fontSize: 16,
                   color: Colors.white,
                 ),

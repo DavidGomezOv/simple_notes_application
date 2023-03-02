@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:simple_notes_application/src/core/constants/constants.dart';
+import 'package:simple_notes_application/src/core/constants/strings.dart';
 import 'package:simple_notes_application/src/core/enums/enums.dart';
 import 'package:simple_notes_application/src/core/extensions/generic_extensions.dart';
 import 'package:simple_notes_application/src/note_detail/ui/widgets/note_detail_color_picker.dart';
@@ -163,7 +164,9 @@ class NoteDetailBottomWidget extends ViewModelWidget<NoteDetailViewModel> {
                     ? null
                     : () => viewModel.saveNote(),
                 child: Text(
-                  viewModel.noteSelected == null ? Messages.saveLabel : Messages.editLabel,
+                  viewModel.noteSelected == null
+                      ? AppStrings().saveLabel
+                      : AppStrings().editLabel,
                   style: TextStyle(color: color),
                 ),
               ),

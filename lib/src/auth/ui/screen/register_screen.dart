@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:simple_notes_application/src/auth/ui/widgets/login_text_field_widget.dart';
 import 'package:simple_notes_application/src/auth/view_mode/auth_view_model.dart';
 import 'package:simple_notes_application/src/core/constants/constants.dart';
+import 'package:simple_notes_application/src/core/constants/strings.dart';
 import 'package:simple_notes_application/src/core/extensions/generic_extensions.dart';
 import 'package:stacked/stacked.dart';
 
@@ -24,7 +25,7 @@ class RegisterScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     LoginTextFieldWidget(
-                      hintText: Messages.nameHint,
+                      hintText: AppStrings().nameHint,
                       controller: viewModel.controllerRegisterName,
                       inputType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
@@ -34,7 +35,7 @@ class RegisterScreen extends StatelessWidget {
                       height: 10,
                     ),
                     LoginTextFieldWidget(
-                      hintText: Messages.emailHint,
+                      hintText: AppStrings().emailHint,
                       controller: viewModel.controllerRegisterEmail,
                       inputType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
@@ -44,7 +45,7 @@ class RegisterScreen extends StatelessWidget {
                       height: 10,
                     ),
                     LoginTextFieldWidget(
-                      hintText: Messages.passwordHint,
+                      hintText: AppStrings().passwordHint,
                       controller: viewModel.controllerRegisterPassword,
                       obscureText: true,
                       inputType: TextInputType.visiblePassword,

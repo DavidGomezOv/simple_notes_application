@@ -4,6 +4,7 @@ import 'package:simple_notes_application/src/auth/model/register_model_request.d
 import 'package:simple_notes_application/src/auth/services/auth_service.dart';
 import 'package:simple_notes_application/src/core/base/base_view_model.dart';
 import 'package:simple_notes_application/src/core/constants/constants.dart';
+import 'package:simple_notes_application/src/core/constants/strings.dart';
 import 'package:simple_notes_application/src/core/di/app_component.dart';
 import 'package:stacked/stacked.dart';
 
@@ -43,10 +44,10 @@ class AuthViewModel extends AppBaseViewModel {
     tabController?.addListener(() {
       if (tabController!.index == 0) {
         isLogin = true;
-        _authService.buttonLabel.value = Messages.loginButtonLabel;
+        _authService.buttonLabel.value = AppStrings().loginButtonLabel;
       } else {
         isLogin = false;
-        _authService.buttonLabel.value = Messages.registerButtonLabel;
+        _authService.buttonLabel.value = AppStrings().registerButtonLabel;
       }
     });
   }
@@ -84,7 +85,7 @@ class AuthViewModel extends AppBaseViewModel {
             loginModelRequest.password!.isNotEmpty)) {
       return true;
     }
-    handleApiResponse(Messages.enterAllInformationMessage);
+    handleApiResponse(AppStrings().enterAllInformationMessage);
     return false;
   }
 
@@ -97,7 +98,7 @@ class AuthViewModel extends AppBaseViewModel {
             registerModelRequest.password!.isNotEmpty)) {
       return true;
     }
-    handleApiResponse(Messages.enterAllInformationMessage);
+    handleApiResponse(AppStrings().enterAllInformationMessage);
     return false;
   }
 
@@ -114,7 +115,7 @@ class AuthViewModel extends AppBaseViewModel {
     _authService.doLogin(loginModelRequest).then((value) {
       if (value != null) {
         FocusScope.of(context).requestFocus(FocusNode());
-        showSnackBar(Messages.authenticateSuccessfullyMessage);
+        showSnackBar(AppStrings().authenticateSuccessfullyMessage);
         appNavigator.back();
       }
     }).catchError((error) {
@@ -127,7 +128,7 @@ class AuthViewModel extends AppBaseViewModel {
     _authService.register(registerModelRequest).then((value) {
       if (value != null) {
         FocusScope.of(context).requestFocus(FocusNode());
-        showSnackBar(Messages.authenticateSuccessfullyMessage);
+        showSnackBar(AppStrings().authenticateSuccessfullyMessage);
         appNavigator.back();
       }
     }).catchError((error) {

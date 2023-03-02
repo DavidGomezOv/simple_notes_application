@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simple_notes_application/src/core/constants/constants.dart';
+import 'package:simple_notes_application/src/core/constants/strings.dart';
 import 'package:simple_notes_application/src/core/di/app_component.dart';
 import 'package:simple_notes_application/src/core/extensions/generic_extensions.dart';
 import 'package:simple_notes_application/src/note_detail/view_model/note_detail_view_model.dart';
@@ -33,7 +34,7 @@ class NoteDetailTopBarWidget extends ViewModelWidget<NoteDetailViewModel> {
               child: TextField(
                 controller: viewModel.titleController,
                 decoration: InputDecoration.collapsed(
-                  hintText: 'Title',
+                  hintText: AppStrings().noteTitleLabel,
                   hintStyle: TextStyle(
                     fontSize: 24,
                     color: HexColor.fromHex(CustomColors.colorWhite38),

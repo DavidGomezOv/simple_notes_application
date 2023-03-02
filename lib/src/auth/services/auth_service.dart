@@ -4,6 +4,7 @@ import 'package:simple_notes_application/src/auth/model/login_model_request.dart
 import 'package:simple_notes_application/src/auth/model/register_model_request.dart';
 import 'package:simple_notes_application/src/core/base/base_reactive_service.dart';
 import 'package:simple_notes_application/src/core/constants/constants.dart';
+import 'package:simple_notes_application/src/core/constants/strings.dart';
 import 'package:simple_notes_application/src/core/utils/shared_preferences_helper.dart';
 import 'package:stacked/stacked.dart';
 
@@ -11,7 +12,7 @@ import 'package:stacked/stacked.dart';
 class AuthService extends BaseReactiveService {
   final AuthRepository _repository;
 
-  final buttonLabel = ReactiveValue<String>(Messages.loginButtonLabel);
+  final buttonLabel = ReactiveValue<String>(AppStrings().loginButtonLabel);
   final ReactiveValue<LoginModelRequest> loginModelRequest =
       ReactiveValue(LoginModelRequest.init());
   final ReactiveValue<RegisterModelRequest> registerModelRequest =

@@ -1,9 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:simple_notes_application/firebase_options.dart';
 import 'package:simple_notes_application/routes.dart';
+import 'package:simple_notes_application/src/core/constants/strings.dart';
 import 'package:simple_notes_application/src/core/di/app_component.dart';
 import 'package:simple_notes_application/src/core/enums/enums.dart';
 import 'package:simple_notes_application/src/core/widgets/alert_bottom_sheet.dart';
@@ -11,6 +12,7 @@ import 'package:simple_notes_application/src/core/widgets/alert_center_sheet.dar
 import 'package:simple_notes_application/src/home/model/note_image_model.dart';
 import 'package:simple_notes_application/src/home/model/note_model.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   configureGetIt();
@@ -49,6 +51,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: kDebugMode,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       title: 'Simple Notes Application',
       initialRoute: Routes.home,
       navigatorKey: appNavigatorKey,

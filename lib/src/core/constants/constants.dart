@@ -6,46 +6,6 @@ extension Constants on String {
   static const localUserId = 'LOCAL_USER_ID';
 }
 
-extension Messages on String {
-  static const emailHint = 'Email';
-  static const passwordHint = 'Password';
-  static const nameHint = 'Name';
-  static const loginButtonLabel = 'Get in';
-  static const registerButtonLabel = 'Get in';
-  static const loginTabLabel = 'Login';
-  static const registerTabLabel = 'Register';
-  static const welcomeLabel = 'Welcome!';
-  static const registerInvitationLabel =
-      "Don't run the risk of losing your information, log in or register.";
-  static const noInternetMessage = 'The device is not connected to Internet';
-  static const acceptLabel = 'Accept';
-  static const cancelLabel = 'Cancel';
-  static const searchNotesLabel = 'Search notes here';
-  static const noNotesLabel = 'There no notes, save one now.';
-  static const noteLabel = 'Note';
-  static const saveLabel = 'Save';
-  static const editLabel = 'Edit';
-  static const selectImagesTitle = 'Information';
-  static const selectImagesMessages = 'Select where you want to get the image';
-  static const galleryLabel = 'Gallery';
-  static const cameraLabel = 'Camera';
-  static const informationLabel = 'Information';
-  static const providePermissionMessage = 'You need to provide the permission';
-  static const deleteNoteMessage =
-      '¿Are you sure you want to delete this note?';
-  static const enterAllInformationMessage = 'Please enter all the information';
-  static const authenticateSuccessfullyMessage = 'Authenticated Successfully';
-  static const singOutConfirmationMessage =
-      '¿Are you sure you want to sign out?';
-  static const downloadImagesOptionMessages =
-      '¿You want to download only this image or all the images?';
-  static const downloadImageConfirmation =
-      'Image downloaded in Downloads folder';
-  static const downloadThisImage = 'Only this';
-  static const downloadAllImages = 'All Images';
-  static const noteDetailImageTitle = 'Images';
-}
-
 extension CustomColors on String {
   static const colorBlack74 = '272727';
   static const colorBlack70 = '313335';

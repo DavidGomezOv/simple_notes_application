@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:simple_notes_application/src/core/base/base_view_model.dart';
 import 'package:simple_notes_application/src/core/constants/constants.dart';
+import 'package:simple_notes_application/src/core/constants/strings.dart';
 import 'package:simple_notes_application/src/core/di/app_component.dart';
 import 'package:simple_notes_application/src/core/enums/enums.dart';
 import 'package:simple_notes_application/src/core/utils/app_dialogs.dart';
@@ -65,17 +66,17 @@ class NoteImagesDetailViewModel extends AppBaseViewModel {
     ].request();
     if (status[Permission.storage]!.isGranted) {
       showInformativeDialog(
-        title: Messages.selectImagesTitle,
-        message: Messages.downloadImagesOptionMessages,
-        primaryButtonLabel: Messages.downloadThisImage,
+        title: AppStrings().selectImagesTitle,
+        message: AppStrings().downloadImagesOptionMessages,
+        primaryButtonLabel: AppStrings().downloadThisImage,
         primaryClick: () => getImages(DownloadType.one),
-        secondaryButtonLabel: Messages.downloadAllImages,
+        secondaryButtonLabel: AppStrings().downloadAllImages,
         secondaryClick: () => getImages(DownloadType.all),
       );
     } else if (status[Permission.storage]!.isDenied) {
       showInformativeDialog(
-          title: Messages.informationLabel,
-          message: Messages.providePermissionMessage);
+          title: AppStrings().informationLabel,
+          message: AppStrings().providePermissionMessage);
     } else if (status[Permission.storage]!.isPermanentlyDenied) {
       openAppSettings();
     }
@@ -126,7 +127,7 @@ class NoteImagesDetailViewModel extends AppBaseViewModel {
       final buffer = fileBytes.buffer;
       File(filePath).writeAsBytes(
           buffer.asUint8List(file.offsetInBytes, file.lengthInBytes));
-      showSnackBar(Messages.downloadImageConfirmation);
+      showSnackBar(AppStrings().downloadImageConfirmation);
     } catch (exception) {
       throw (exception.toString());
     }

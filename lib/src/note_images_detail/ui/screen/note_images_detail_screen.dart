@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_notes_application/src/core/constants/constants.dart';
+import 'package:simple_notes_application/src/core/constants/strings.dart';
 import 'package:simple_notes_application/src/core/extensions/generic_extensions.dart';
 import 'package:simple_notes_application/src/note_images_detail/ui/widgets/note_images_list_dots_widget.dart';
 import 'package:simple_notes_application/src/note_images_detail/ui/widgets/note_images_list_item.dart';
@@ -20,7 +21,7 @@ class NoteImagesDetailScreen extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            title: const Text(Messages.noteDetailImageTitle),
+            title: Text(AppStrings().noteDetailImageTitle),
             actions: [
               MaterialButton(
                 visualDensity: VisualDensity.compact,

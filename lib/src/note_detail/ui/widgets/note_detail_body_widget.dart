@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simple_notes_application/src/core/constants/constants.dart';
+import 'package:simple_notes_application/src/core/constants/strings.dart';
 import 'package:simple_notes_application/src/core/extensions/generic_extensions.dart';
 import 'package:simple_notes_application/src/core/extensions/string_extensions.dart';
 import 'package:simple_notes_application/src/note_detail/view_model/note_detail_view_model.dart';
@@ -16,7 +17,7 @@ class NoteDetailBodyWidget extends ViewModelWidget<NoteDetailViewModel> {
         child: TextField(
           controller: viewModel.contentController,
           decoration: InputDecoration.collapsed(
-              hintText: Messages.noteLabel,
+              hintText: AppStrings().noteLabel,
               hintStyle: TextStyle(
                   fontSize: viewModel.textSize, color: Colors.white38)),
           style: TextStyle(

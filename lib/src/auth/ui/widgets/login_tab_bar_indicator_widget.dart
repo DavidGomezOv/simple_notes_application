@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:simple_notes_application/src/auth/view_mode/auth_view_model.dart';
 import 'package:simple_notes_application/src/core/constants/constants.dart';
+import 'package:simple_notes_application/src/core/constants/strings.dart';
 import 'package:simple_notes_application/src/core/extensions/generic_extensions.dart';
 import 'package:stacked/stacked.dart';
 
@@ -25,12 +26,12 @@ class LoginTabBarIndicatorWidget extends ViewModelWidget<AuthViewModel> {
         unselectedLabelColor: HexColor.fromHex(CustomColors.colorWhite54),
         labelColor: HexColor.fromHex(CustomColors.colorBlue),
         controller: viewModel.tabController,
-        tabs: const [
+        tabs: [
           Tab(
-            text: Messages.loginTabLabel,
+            text: AppStrings().loginTabLabel,
           ),
           Tab(
-            text: Messages.registerTabLabel,
+            text: AppStrings().registerTabLabel,
           ),
         ],
       ),

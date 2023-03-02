@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:simple_notes_application/routes.dart';
 import 'package:simple_notes_application/src/core/base/base_view_model.dart';
 import 'package:simple_notes_application/src/core/constants/constants.dart';
+import 'package:simple_notes_application/src/core/constants/strings.dart';
 import 'package:simple_notes_application/src/core/di/app_component.dart';
 import 'package:simple_notes_application/src/core/enums/enums.dart';
 import 'package:simple_notes_application/src/core/extensions/generic_extensions.dart';
@@ -70,11 +71,11 @@ class NoteDetailViewModel extends AppBaseViewModel {
 
   Future pickImages() async {
     showInformativeDialog(
-      title: Messages.selectImagesTitle,
-      message: Messages.selectImagesMessages,
-      primaryButtonLabel: Messages.galleryLabel,
+      title: AppStrings().selectImagesTitle,
+      message: AppStrings().selectImagesMessages,
+      primaryButtonLabel: AppStrings().galleryLabel,
       primaryClick: () => getImages(ImageSource.gallery),
-      secondaryButtonLabel: Messages.cameraLabel,
+      secondaryButtonLabel: AppStrings().cameraLabel,
       secondaryClick: () => getImages(ImageSource.camera),
     );
   }
@@ -229,8 +230,8 @@ class NoteDetailViewModel extends AppBaseViewModel {
 
   void deleteNote() {
     showInformativeDialog(
-      title: Messages.informationLabel,
-      message: Messages.deleteNoteMessage,
+      title: AppStrings().informationLabel,
+      message: AppStrings().deleteNoteMessage,
       primaryClick: () {
         _noteDetailService
             .deleteNote(noteSelected!.id!)
