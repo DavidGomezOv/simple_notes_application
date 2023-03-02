@@ -1,10 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:simple_notes_application/firebase_options.dart';
 import 'package:simple_notes_application/routes.dart';
-import 'package:simple_notes_application/src/core/constants/strings.dart';
 import 'package:simple_notes_application/src/core/di/app_component.dart';
 import 'package:simple_notes_application/src/core/enums/enums.dart';
 import 'package:simple_notes_application/src/core/widgets/alert_bottom_sheet.dart';
@@ -17,6 +17,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 void main() async {
   configureGetIt();
   WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();
   _setupBottomSheetUi();
   _initHive();
   await Firebase.initializeApp(

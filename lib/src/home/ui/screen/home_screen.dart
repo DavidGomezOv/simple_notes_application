@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:simple_notes_application/src/core/constants/constants.dart';
 import 'package:simple_notes_application/src/core/constants/strings.dart';
 import 'package:simple_notes_application/src/core/extensions/generic_extensions.dart';
@@ -39,6 +40,13 @@ class HomeScreen extends StatelessWidget {
                         size: 35.0,
                         color: HexColor.fromHex(CustomColors.colorWhite38),
                       ),
+                    ),
+                    const SizedBox(height: 10,),
+                    Container(
+                      alignment: Alignment.center,
+                      width: viewModel.myBanner.size.width.toDouble(),
+                      height: viewModel.myBanner.size.height.toDouble(),
+                      child: AdWidget(ad: viewModel.myBanner),
                     ),
                     Expanded(
                       child: viewModel.notes.isEmpty
