@@ -31,5 +31,10 @@
     "downloadImageConfirmation" : "Imagen guardada en la carpeta de descargas",
     "downloadThisImage" : "Sólo ésta",
     "downloadAllImages" : "Todas las imágenes",
-    "noteDetailImageTitle" : "Imágenes"
+    "noteDetailImageTitle" : "Imágenes",
+    "signOutTitle" : "Ya iniciaste sesión",
+    "signOutMessage" : "Tus notas están siendo guardada, no la perderás",
+    "signOutMessageMiddle" : "Puedes cerrar sesión pero tus notas se guardarán de manera local en tu celular",
+    "signOutMessageBottom" : "Puedes iniciar sesión cuando quieras",
+    "signOutButtonLabel" : "Cerrar sesión"
 }

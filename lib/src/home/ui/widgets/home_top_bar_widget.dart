@@ -44,14 +44,15 @@ class HomeTopBarWidget extends ViewModelWidget<HomeViewModel> {
             children: [
               MaterialButton(
                 visualDensity: VisualDensity.compact,
-                minWidth: 40,
-                height: 50,
+                minWidth: 50,
+                height: 60,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
                 onPressed: viewModel.changeGridViewValue,
                 child: iconData,
               ),
+              const SizedBox(width: 4,),
               Expanded(
                 child: Container(
                   decoration: BoxDecoration(
@@ -89,7 +90,9 @@ class HomeTopBarWidget extends ViewModelWidget<HomeViewModel> {
                   ),
                 ),
               ),
-              MaterialButton(
+              const SizedBox(width: 10,),
+              //TODO Commented for future implementation
+              /*MaterialButton(
                 visualDensity: VisualDensity.compact,
                 minWidth: 40,
                 height: 50,
@@ -101,7 +104,7 @@ class HomeTopBarWidget extends ViewModelWidget<HomeViewModel> {
                   Icons.person,
                   color: Colors.white,
                 ),
-              )
+              )*/
             ],
           );
   }

@@ -31,5 +31,10 @@
     "downloadImageConfirmation" : "Image downloaded in Downloads folder",
     "downloadThisImage" : "Only this",
     "downloadAllImages" : "All Images",
-    "noteDetailImageTitle" : "Images"
+    "noteDetailImageTitle" : "Images",
+    "signOutTitle" : "You are already logged in",
+    "signOutMessage" : "Your notes are saved so you wont lose it",
+    "signOutMessageMiddle" : "You can log out but the notes will save locally on your phone",
+    "signOutMessageBottom" : "You can log in anytime you want",
+    "signOutButtonLabel" : "Sign out"
 }

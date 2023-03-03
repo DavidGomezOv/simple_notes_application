@@ -54,7 +54,10 @@ class NoteDetailImagesWidget extends ViewModelWidget<NoteDetailViewModel> {
                           ),
                         ),
                       ),
-                      NoteDetailImageRemoveWidget(index: index),
+                      NoteDetailImageRemoveWidget(
+                        index: index,
+                        isRemote: true,
+                      ),
                     ],
                   ),
                 );
@@ -89,7 +92,10 @@ class NoteDetailImagesWidget extends ViewModelWidget<NoteDetailViewModel> {
                           ),
                         ),
                       ),
-                      NoteDetailImageRemoveWidget(index: index),
+                      NoteDetailImageRemoveWidget(
+                        index: index,
+                        isRemote: false,
+                      ),
                     ],
                   ),
                 );

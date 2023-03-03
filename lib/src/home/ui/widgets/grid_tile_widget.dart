@@ -71,7 +71,7 @@ class GridTileWidget extends ViewModelWidget<HomeViewModel> {
                       fontWeight: noteModel!.textType?.getFontWeight(),
                       fontStyle: noteModel!.textType?.getFontStyle(),
                     ),
-                    maxLines: 8,
+                    maxLines: 6,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ],

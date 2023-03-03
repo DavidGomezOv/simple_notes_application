@@ -20,7 +20,7 @@ class NoteDetailTopBarWidget extends ViewModelWidget<NoteDetailViewModel> {
             MaterialButton(
               visualDensity: VisualDensity.compact,
               minWidth: 60,
-              height: 50,
+              height: 60,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(50),
               ),
@@ -30,6 +30,7 @@ class NoteDetailTopBarWidget extends ViewModelWidget<NoteDetailViewModel> {
                 color: Colors.white,
               ),
             ),
+            const SizedBox(width: 10,),
             Expanded(
               child: TextField(
                 controller: viewModel.titleController,
@@ -51,7 +52,7 @@ class NoteDetailTopBarWidget extends ViewModelWidget<NoteDetailViewModel> {
             MaterialButton(
               visualDensity: VisualDensity.compact,
               minWidth: 60,
-              height: 50,
+              height: 60,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(50),
               ),
@@ -70,7 +71,7 @@ class NoteDetailTopBarWidget extends ViewModelWidget<NoteDetailViewModel> {
                 ? MaterialButton(
                     visualDensity: VisualDensity.compact,
                     minWidth: 60,
-                    height: 50,
+                    height: 60,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50),
                     ),

@@ -19,7 +19,12 @@ class AlertCenterSheet extends StatelessWidget {
         alignment: Alignment.bottomCenter,
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 15),
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.only(
+            top: 10,
+            right: 10,
+            left: 10,
+            bottom: 6,
+          ),
           width: double.maxFinite,
           decoration: BoxDecoration(
             color: Colors.white,
@@ -60,16 +65,16 @@ class AlertCenterSheet extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 20,
+                height: 10,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 4, bottom: 2),
-                    child: GestureDetector(
-                      onTap: () =>
-                          completer(SheetResponse(confirmed: true, data: 2)),
+                  MaterialButton(
+                    onPressed: () =>
+                        completer(SheetResponse(confirmed: true, data: 2)),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 14.0),
                       child: Text(
                         request.secondaryButtonTitle?.toUpperCase() ?? '',
                         style: TextStyle(
@@ -79,14 +84,11 @@ class AlertCenterSheet extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 4, bottom: 2),
-                    child: GestureDetector(
-                      onTap: () =>
-                          completer(SheetResponse(confirmed: true, data: 1)),
+                  MaterialButton(
+                    onPressed: () =>
+                        completer(SheetResponse(confirmed: true, data: 1)),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 14),
                       child: Text(
                         request.mainButtonTitle?.toUpperCase() ?? '',
                         style: TextStyle(

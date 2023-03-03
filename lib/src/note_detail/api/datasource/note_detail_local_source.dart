@@ -89,6 +89,8 @@ class NoteDetailLocalSource {
     });
     final directory = await getApplicationDocumentsDirectory();
     final noteFolder = Directory('${directory.path}/$noteId');
-    await noteFolder.delete(recursive: true);
+    if (await noteFolder.exists()) {
+      await noteFolder.delete(recursive: true);
+    }
   }
 }
