@@ -62,6 +62,7 @@ dependencies:
   firebase_storage: ^11.0.14
   carousel_slider: ^4.2.1
   permission_handler: ^10.2.0
+  gallery_saver: ^2.3.2
 
 dev_dependencies:
   build_runner: ^2.3.2

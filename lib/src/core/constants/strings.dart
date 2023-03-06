@@ -90,6 +90,9 @@ class AppStrings {
   String get downloadImageConfirmation =>
       AppLocalizations.of(_context)!.downloadImageConfirmation;
 
+  String get downloadImagesConfirmation =>
+      AppLocalizations.of(_context)!.downloadImagesConfirmation;
+
   String get downloadThisImage =>
       AppLocalizations.of(_context)!.downloadThisImage;
 
