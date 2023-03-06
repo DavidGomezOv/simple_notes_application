@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:gallery_saver/gallery_saver.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:simple_notes_application/src/core/base/base_view_model.dart';
 import 'package:simple_notes_application/src/core/constants/constants.dart';
@@ -61,33 +63,26 @@ class NoteImagesDetailViewModel extends AppBaseViewModel {
   }
 
   Future<void> downloadImage() async {
-    Map<Permission, PermissionStatus> status = await [
-      Permission.storage,
-    ].request();
-    if (status[Permission.storage]!.isGranted) {
-      showInformativeDialog(
-        title: AppStrings().selectImagesTitle,
-        message: AppStrings().downloadImagesOptionMessages,
-        primaryButtonLabel: AppStrings().downloadThisImage,
-        primaryClick: () => getImages(DownloadType.one),
-        secondaryButtonLabel: AppStrings().downloadAllImages,
-        secondaryClick: () => getImages(DownloadType.all),
-      );
-    } else if (status[Permission.storage]!.isDenied) {
-      showInformativeDialog(
-          title: AppStrings().informationLabel,
-          message: AppStrings().providePermissionMessage);
-    } else if (status[Permission.storage]!.isPermanentlyDenied) {
-      openAppSettings();
-    }
+    showInformativeDialog(
+      title: AppStrings().selectImagesTitle,
+      message: AppStrings().downloadImagesOptionMessages,
+      primaryButtonLabel: AppStrings().downloadThisImage,
+      primaryClick: () => downloadImages(DownloadType.one),
+      secondaryButtonLabel: AppStrings().downloadAllImages,
+      secondaryClick: () => downloadImages(DownloadType.all),
+    );
   }
 
-  Future<void> getImages(DownloadType type) async {
+  Future<void> downloadImages(DownloadType type) async {
     if (type == DownloadType.one) {
       getFile(remoteImages[position]!).then((value) async {
         saveFile(
           '${noteSelected.title}-${remoteImages[position]!.imageName!}',
           value,
+          remoteImages[position]!.imageUrl!.contains('https'),
+          noteSelected.id!,
+        ).then(
+          (value) => showSnackBar(AppStrings().downloadImageConfirmation),
         );
       }).catchError((error) {
         handleApiResponse(error.toString());
@@ -96,10 +91,16 @@ class NoteImagesDetailViewModel extends AppBaseViewModel {
       for (var element in remoteImages) {
         try {
           final imageData = await getFile(element!);
-          saveFile(
+          await saveFile(
             '${noteSelected.title}-${element.imageName!}',
             imageData,
-          );
+            remoteImages[position]!.imageUrl!.contains('https'),
+            noteSelected.id!,
+          ).then((value) {
+            if (remoteImages.last == element) {
+              showSnackBar(AppStrings().downloadImagesConfirmation);
+            }
+          });
         } catch (exception) {
           handleApiResponse(exception.toString());
           break;
@@ -108,7 +109,7 @@ class NoteImagesDetailViewModel extends AppBaseViewModel {
     }
   }
 
-  Future<Uint8List> getFile(NoteImageModel imageSelected) async {
+  Future<dynamic> getFile(NoteImageModel imageSelected) async {
     if (imageSelected.imageUrl!.contains('https')) {
       final data = await _noteImagesService.downloadImage(
         noteSelected.id!,
@@ -116,18 +117,25 @@ class NoteImagesDetailViewModel extends AppBaseViewModel {
       );
       return data;
     } else {
-      return File(imageSelected.imageUrl!).readAsBytesSync();
+      return File(imageSelected.imageUrl!);
     }
   }
 
-  Future<void> saveFile(String name, Uint8List file) async {
-    String filePath = '/storage/emulated/0/Download/$name';
+  Future<bool?> saveFile(
+      String name, dynamic file, bool isRemote, String noteModelId) async {
     try {
-      var fileBytes = ByteData.view(file.buffer);
-      final buffer = fileBytes.buffer;
-      File(filePath).writeAsBytes(
-          buffer.asUint8List(file.offsetInBytes, file.lengthInBytes));
-      showSnackBar(AppStrings().downloadImageConfirmation);
+      late File fileToSave;
+      if (isRemote) {
+        final directory = await getApplicationDocumentsDirectory();
+        final Directory appDocDirFolder =
+        Directory('${directory.path}/$noteModelId');
+        final imageData = File.fromRawPath(file as Uint8List);
+        fileToSave = await imageData.copy('${appDocDirFolder.path}/$name');
+      } else {
+        fileToSave = file as File;
+      }
+      return GallerySaver.saveImage(fileToSave.path,
+          albumName: 'Simple Notes Images');
     } catch (exception) {
       throw (exception.toString());
     }

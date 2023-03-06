@@ -28,8 +28,14 @@
     "authenticateSuccessfullyMessage" : "Autenticación exitosa",
     "singOutConfirmationMessage" : "¿Estás seguro que quieres cerrar sesión?",
     "downloadImagesOptionMessages" : "¿Quieres descargar sólo está imagen o todas las imágenes?",
-    "downloadImageConfirmation" : "Imagen guardada en la carpeta de descargas",
+    "downloadImageConfirmation" : "Imagen guardada en la galería, carpeta Simple Notes Images",
+    "downloadImagesConfirmation" : "Imágenes guardadas en la galería, carpeta Simple Notes Images",
     "downloadThisImage" : "Sólo ésta",
     "downloadAllImages" : "Todas las imágenes",
-    "noteDetailImageTitle" : "Imágenes"
+    "noteDetailImageTitle" : "Imágenes",
+    "signOutTitle" : "Ya iniciaste sesión",
+    "signOutMessage" : "Tus notas están siendo guardada, no la perderás",
+    "signOutMessageMiddle" : "Puedes cerrar sesión pero tus notas se guardarán de manera local en tu celular",
+    "signOutMessageBottom" : "Puedes iniciar sesión cuando quieras",
+    "signOutButtonLabel" : "Cerrar sesión"
 }

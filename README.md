@@ -1,6 +1,6 @@
-# simple_chopper_example
+# simple_notes_application
 
-A new Flutter project with Firebase and stacked architecture
+A simple notes application with stacked architecture, hive local database and clean architecture.
 
 ## Getting Started
 

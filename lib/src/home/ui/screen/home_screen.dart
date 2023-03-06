@@ -81,23 +81,6 @@ class HomeScreen extends StatelessWidget {
             child: const Icon(Icons.add),
             onPressed: () => viewModel.onNoteTap(null),
           ),
-          //Commented for future implementation
-          /*ExpandableFab(
-            viewModel: viewModel,
-            key: viewModel.globalKey,
-            children: [
-              ActionButton(
-                tag: 'create',
-                icon: const Icon(Icons.create),
-                onPressed: () => viewModel.onNoteTap(null),
-              ),
-              ActionButton(
-                tag: 'photo',
-                icon: const Icon(Icons.insert_photo),
-                onPressed: () => viewModel.onPhotoNoteTap(),
-              ),
-            ],
-          ),*/
         ),
       ),
     );

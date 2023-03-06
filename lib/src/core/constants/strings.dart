@@ -90,6 +90,9 @@ class AppStrings {
   String get downloadImageConfirmation =>
       AppLocalizations.of(_context)!.downloadImageConfirmation;
 
+  String get downloadImagesConfirmation =>
+      AppLocalizations.of(_context)!.downloadImagesConfirmation;
+
   String get downloadThisImage =>
       AppLocalizations.of(_context)!.downloadThisImage;
 
@@ -98,4 +101,17 @@ class AppStrings {
 
   String get noteDetailImageTitle =>
       AppLocalizations.of(_context)!.noteDetailImageTitle;
+
+  String get signOutTitle => AppLocalizations.of(_context)!.signOutTitle;
+
+  String get signOutMessage => AppLocalizations.of(_context)!.signOutMessage;
+
+  String get signOutMessageMiddle =>
+      AppLocalizations.of(_context)!.signOutMessageMiddle;
+
+  String get signOutMessageBottom =>
+      AppLocalizations.of(_context)!.signOutMessageBottom;
+
+  String get signOutButtonLabel =>
+      AppLocalizations.of(_context)!.signOutButtonLabel;
 }

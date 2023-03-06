@@ -4,10 +4,12 @@ import 'package:stacked/stacked.dart';
 
 class NoteDetailImageRemoveWidget extends ViewModelWidget<NoteDetailViewModel> {
   final int index;
+  final bool isRemote;
 
   const NoteDetailImageRemoveWidget({
     super.key,
     required this.index,
+    required this.isRemote,
   });
 
   @override
@@ -21,7 +23,7 @@ class NoteDetailImageRemoveWidget extends ViewModelWidget<NoteDetailViewModel> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(50),
         ),
-        onPressed: () => viewModel.removeImage(index, isRemote: true),
+        onPressed: () => viewModel.removeImage(index, isRemote: isRemote),
         child: const Icon(
           Icons.cancel,
           color: Colors.red,

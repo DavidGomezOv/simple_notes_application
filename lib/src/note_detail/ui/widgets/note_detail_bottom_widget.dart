@@ -9,7 +9,7 @@ import 'package:simple_notes_application/src/note_detail/view_model/note_detail_
 import 'package:stacked/stacked.dart';
 
 class NoteDetailBottomWidget extends ViewModelWidget<NoteDetailViewModel> {
-  const NoteDetailBottomWidget({super.key});
+  const   NoteDetailBottomWidget({super.key});
 
   @override
   Widget build(BuildContext context, NoteDetailViewModel viewModel) {
@@ -21,7 +21,7 @@ class NoteDetailBottomWidget extends ViewModelWidget<NoteDetailViewModel> {
       child: Container(
         color: viewModel.loading ? Colors.transparent : viewModel.noteColor,
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        height: 145,
+        height: 155,
         child: Column(
           children: [
             Row(
@@ -38,12 +38,15 @@ class NoteDetailBottomWidget extends ViewModelWidget<NoteDetailViewModel> {
                         const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
-                  child: Text(
-                    'B',
-                    style: TextStyle(
-                        fontSize: 22,
-                        color: color,
-                        fontWeight: FontWeight.bold),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 5),
+                    child: Text(
+                      'B',
+                      style: TextStyle(
+                          fontSize: 26,
+                          color: color,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
                 TextButton(
@@ -57,10 +60,13 @@ class NoteDetailBottomWidget extends ViewModelWidget<NoteDetailViewModel> {
                         const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
-                  child: FaIcon(
-                    FontAwesomeIcons.italic,
-                    size: 19,
-                    color: color,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 8,),
+                    child: FaIcon(
+                      FontAwesomeIcons.italic,
+                      size: 20,
+                      color: color,
+                    ),
                   ),
                 ),
                 TextButton(
@@ -71,12 +77,15 @@ class NoteDetailBottomWidget extends ViewModelWidget<NoteDetailViewModel> {
                         const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
-                  child: Text(
-                    'A+',
-                    style: TextStyle(
-                        fontSize: 22,
-                        color: color,
-                        fontWeight: FontWeight.bold),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 6),
+                    child: Text(
+                      'A+',
+                      style: TextStyle(
+                          fontSize: 26,
+                          color: color,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
                 TextButton(
@@ -87,12 +96,15 @@ class NoteDetailBottomWidget extends ViewModelWidget<NoteDetailViewModel> {
                         const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
-                  child: Text(
-                    'A-',
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: color,
-                        fontWeight: FontWeight.bold),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 6),
+                    child: Text(
+                      'A-',
+                      style: TextStyle(
+                          fontSize: 26,
+                          color: color,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
               ],
