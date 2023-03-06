@@ -1,43 +1,77 @@
+import 'dart:async';
+
 import 'package:injectable/injectable.dart';
-import 'package:simple_chopper_example/src/core/base/base_reactive_service.dart';
-import 'package:simple_chopper_example/src/core/converters/exception/api_exception.dart';
-import 'package:simple_chopper_example/src/core/either/api_result.dart';
-import 'package:simple_chopper_example/src/home/api/repository/home_repository.dart';
-import 'package:simple_chopper_example/src/home/model/item_list_model.dart';
+import 'package:simple_notes_application/src/core/base/base_reactive_service.dart';
+import 'package:simple_notes_application/src/core/utils/shared_preferences_helper.dart';
+import 'package:simple_notes_application/src/home/api/repository/home_repository.dart';
+import 'package:simple_notes_application/src/home/model/note_model.dart';
 import 'package:stacked/stacked.dart';
 
 @lazySingleton
 class HomeService extends BaseReactiveService {
   final HomeRepository _repository;
 
-  final itemListValue = ReactiveValue<List<ItemListModel>>([]);
+  final isGridViewValue = ReactiveValue<bool>(false);
+  final notesValue = ReactiveValue<List<NoteModel>>([]);
+  final noteSelectedValue = ReactiveValue<NoteModel?>(null);
+  late List<NoteModel> completeList = [];
+  StreamSubscription<dynamic>? streamSubscription;
 
   @factoryMethod
   HomeService.from(this._repository) {
     listenToReactiveValues([
       loadingReactiveValue,
-      itemListValue,
+      isGridViewValue,
+      notesValue,
     ]);
   }
 
-  Future<dynamic> getItemList() async {
+  Future<dynamic> getNotes() async {
+    final token = await SharedPreferenceHelper.getSessionToken();
+    if (token != null) {
+      return getFirebaseNotes();
+    } else {
+      return getLocalNotes();
+    }
+  }
+
+  Future<dynamic> getFirebaseNotes() async {
+    streamSubscription?.cancel();
     loadingReactiveValue.value = true;
-    return _repository
-        .getItemList()
-        .then((value) {
-          if (value.status == Status.completed) {
-            final data = value.data as List<ItemListModel>;
-            itemListValue.value = data;
-            return data;
-          } else {
-            throw value.apiException as ApiException;
-          }
-        })
-        .catchError(
-          (error) => throw (error),
-        )
-        .whenComplete(
-          () => loadingReactiveValue.value = false,
+    final stream = await _repository.getNotes();
+    streamSubscription = stream.listen((event) {
+      loadingReactiveValue.value = false;
+      List<NoteModel> notes = [];
+      for (var e in event.docs) {
+        notes.add(NoteModel.fromJson(e.data()));
+      }
+      if (notes.isNotEmpty) {
+        notes.sort(
+          (a, b) => b.createdAt!.compareTo(a.createdAt!),
         );
+        notes.sort(
+          (a, b) => b.isPinned! ? 1 : -1,
+        );
+      }
+      completeList = notes;
+      notesValue.value = notes;
+    });
+  }
+
+  Future<dynamic> getLocalNotes() async {
+    loadingReactiveValue.value = true;
+    _repository.getLocalNotes().then((value) {
+      if (value is List<NoteModel>) {
+        if (value.isNotEmpty) {
+          value.sort(
+            (a, b) => b.createdAt!.compareTo(a.createdAt!),
+          );
+          value.sort(
+                (a, b) => b.isPinned! ? 1 : -1,
+          );
+        }
+        notesValue.value = value;
+      }
+    }).whenComplete(() => loadingReactiveValue.value = false);
   }
 }

@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "974514426847",
+    "project_id": "notes-app-741e0",
+    "storage_bucket": "notes-app-741e0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:974514426847:android:d32d8c42b9fbf50311ea6a",
+        "android_client_info": {
+          "package_name": "com.kyozucorp.simple_notes_application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "974514426847-fhd9e2tf4nqodca4rlcg2f2g24vgqmjf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDt2g-TFn53KYsrdtzoXHBjC6dw3v2vLhk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "974514426847-fhd9e2tf4nqodca4rlcg2f2g24vgqmjf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "974514426847-iu9nt8erd6tvgev9sdl4lp2etsb5jm1b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.kyozucorp.simple_notes_application"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

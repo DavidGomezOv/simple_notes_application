@@ -1,28 +1,47 @@
-import 'package:simple_chopper_example/src/core/di/app_component.dart';
+import 'package:simple_notes_application/src/core/constants/constants.dart';
+import 'package:simple_notes_application/src/core/constants/strings.dart';
+import 'package:simple_notes_application/src/core/di/app_component.dart';
+import 'package:simple_notes_application/src/core/enums/enums.dart';
 
-void showAlertDialog(
+void showErrorSheet(
   String message, {
-  String? title,
   String? okButton,
-  String? cancelButton,
   Function? okClick,
-  Function? cancelClick,
   bool oneButton = true,
-  bool cancelable = true,
 }) async {
-  var sheetResponse = await bottomSheetService.showCustomSheet(
-      variant: DialogType.floating,
-      title: title,
-      description: message,
-      mainButtonTitle: okButton ?? 'Accept',
-      secondaryButtonTitle: cancelButton ?? 'Cancel',
-      showIconInSecondaryButton: !oneButton,
-      isScrollControlled: true);
-  if (sheetResponse?.confirmed == true) {
-    okClick?.call();
-  } else {
-    cancelClick?.call();
-  }
+  await bottomSheetService.showCustomSheet(
+    variant: DialogType.error,
+    description: message,
+    mainButtonTitle: AppStrings().acceptLabel,
+    isScrollControlled: true,
+    barrierDismissible: false,
+  );
+  okClick?.call();
 }
 
-enum DialogType { floating }
+void showInformativeDialog({
+  required String title,
+  required String message,
+  String? primaryButtonLabel,
+  String? secondaryButtonLabel,
+  Function? primaryClick,
+  Function? secondaryClick,
+}) async {
+  final sheetResponse = await bottomSheetService.showCustomSheet(
+    variant: DialogType.informative,
+    title: title,
+    description: message,
+    mainButtonTitle: primaryButtonLabel ?? AppStrings().acceptLabel,
+    secondaryButtonTitle: secondaryButtonLabel ?? AppStrings().cancelLabel,
+  );
+  if (sheetResponse?.confirmed == true) {
+    switch (sheetResponse!.data) {
+      case 1:
+        primaryClick?.call();
+        break;
+      case 2:
+        secondaryClick?.call();
+        break;
+    }
+  }
+}
