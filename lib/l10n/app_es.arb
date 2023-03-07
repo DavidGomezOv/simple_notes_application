@@ -13,6 +13,7 @@
     "cancelLabel" : "Cancelar",
     "searchNotesLabel" : "Busca notas aquí",
     "noNotesLabel" : "No hay notas por ahora, guarda una.",
+    "searchEmptyLabel" : "No hay notas que coincidan",
     "noteTitleLabel" : "Título",
     "noteLabel" : "Nota",
     "saveLabel" : "Guardar",

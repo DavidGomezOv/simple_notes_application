@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:simple_notes_application/src/core/constants/constants.dart';
@@ -41,13 +42,17 @@ class HomeScreen extends StatelessWidget {
                         color: HexColor.fromHex(CustomColors.colorWhite38),
                       ),
                     ),
-                    const SizedBox(height: 10,),
-                    Container(
-                      alignment: Alignment.center,
-                      width: viewModel.myBanner.size.width.toDouble(),
-                      height: viewModel.myBanner.size.height.toDouble(),
-                      child: AdWidget(ad: viewModel.myBanner),
+                    const SizedBox(
+                      height: 10,
                     ),
+                    //TODO CHANGE WITH REAL IMPLEMENTATION
+                    if (kDebugMode)
+                      Container(
+                        alignment: Alignment.center,
+                        width: viewModel.myBanner.size.width.toDouble(),
+                        height: viewModel.myBanner.size.height.toDouble(),
+                        child: AdWidget(ad: viewModel.myBanner),
+                      ),
                     Expanded(
                       child: viewModel.notes.isEmpty
                           ? Padding(
@@ -56,7 +61,9 @@ class HomeScreen extends StatelessWidget {
                                 children: [
                                   Center(
                                     child: Text(
-                                      AppStrings().noNotesLabel,
+                                      viewModel.isSearching
+                                          ? AppStrings().searchEmptyLabel
+                                          : AppStrings().noNotesLabel,
                                       style: TextStyle(
                                         color: HexColor.fromHex(
                                             CustomColors.colorWhite54),

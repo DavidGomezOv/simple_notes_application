@@ -70,6 +70,7 @@ class HomeService extends BaseReactiveService {
                 (a, b) => b.isPinned! ? 1 : -1,
           );
         }
+        completeList = value;
         notesValue.value = value;
       }
     }).whenComplete(() => loadingReactiveValue.value = false);

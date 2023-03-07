@@ -39,7 +39,7 @@ class HomeViewModel extends AppBaseViewModel {
     myBanner.load();
   }
 
-  //Test Banner ID ca-app-pub-3940256099942544/6300978111
+  //Production Banner ID ca-app-pub-3541200025569380~7614899970
   final BannerAd myBanner = BannerAd(
     adUnitId: 'ca-app-pub-3541200025569380/3516707010',
     size: AdSize.banner,
