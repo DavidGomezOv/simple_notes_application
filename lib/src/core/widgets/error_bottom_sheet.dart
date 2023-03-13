@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:simple_notes_application/src/core/constants/constants.dart';
-import 'package:simple_notes_application/src/core/extensions/generic_extensions.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class AlertBottomSheet extends StatelessWidget {
+class ErrorBottomSheet extends StatelessWidget {
   final SheetRequest request;
   final Function(SheetResponse) completer;
 
-  const AlertBottomSheet({
+  const ErrorBottomSheet({
     Key? key,
     required this.request,
     required this.completer,
@@ -35,9 +33,9 @@ class AlertBottomSheet extends StatelessWidget {
                   child: Text(
                     request.title ?? '',
                     style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
                   ),
                 ),
               Container(
@@ -47,6 +45,7 @@ class AlertBottomSheet extends StatelessWidget {
                   request.description ?? '',
                   style: const TextStyle(
                     fontSize: 16,
+                    color: Colors.black,
                   ),
                   maxLines: 15,
                 ),
@@ -59,9 +58,9 @@ class AlertBottomSheet extends StatelessWidget {
                     onTap: () => completer(SheetResponse(confirmed: true)),
                     child: Text(
                       request.mainButtonTitle?.toUpperCase() ?? '',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16,
-                        color: HexColor.fromHex(CustomColors.colorPurple),
+                        color: Colors.deepPurpleAccent,
                       ),
                     ),
                   ),

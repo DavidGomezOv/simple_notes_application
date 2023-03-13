@@ -48,6 +48,8 @@ class AppStrings {
 
   String get noNotesLabel => AppLocalizations.of(_context)!.noNotesLabel;
 
+  String get searchEmptyLabel => AppLocalizations.of(_context)!.searchEmptyLabel;
+
   String get noteTitleLabel => AppLocalizations.of(_context)!.noteTitleLabel;
 
   String get noteLabel => AppLocalizations.of(_context)!.noteLabel;

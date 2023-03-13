@@ -25,6 +25,7 @@ class NoteDetailService extends BaseReactiveService {
   final imageList = ReactiveValue<List<File?>>([]);
   final remoteImageList = ReactiveValue<List<NoteImageModel?>>([]);
   final imageSelected = ReactiveValue<int>(0);
+  final expandedImages = ReactiveValue<bool>(false);
 
   @factoryMethod
   NoteDetailService.from(this._repository) {
@@ -39,6 +40,7 @@ class NoteDetailService extends BaseReactiveService {
       imageList,
       remoteImageList,
       imageSelected,
+      expandedImages,
     ]);
   }
 
@@ -52,6 +54,7 @@ class NoteDetailService extends BaseReactiveService {
     imageList.value = [];
     remoteImageList.value = [];
     imageSelected.value = 0;
+    expandedImages.value = false;
     loadingReactiveValue.value = false;
   }
 
