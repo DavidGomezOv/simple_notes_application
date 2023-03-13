@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:simple_notes_application/src/core/constants/constants.dart';
-import 'package:simple_notes_application/src/core/extensions/generic_extensions.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class AlertCenterSheet extends StatelessWidget {
+class InformativeBottomSheet extends StatelessWidget {
   final SheetRequest request;
   final Function(SheetResponse) completer;
 
-  const AlertCenterSheet({
+  const InformativeBottomSheet({
     Key? key,
     required this.request,
     required this.completer,
@@ -45,6 +43,7 @@ class AlertCenterSheet extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
+                          color: Colors.black,
                         ),
                       ),
                     ),
@@ -58,9 +57,7 @@ class AlertCenterSheet extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 5, bottom: 10),
                 child: Text(
                   request.description ?? '',
-                  style: const TextStyle(
-                    fontSize: 16,
-                  ),
+                  style: const TextStyle(fontSize: 16, color: Colors.black),
                   maxLines: 15,
                 ),
               ),
@@ -77,9 +74,9 @@ class AlertCenterSheet extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 14.0),
                       child: Text(
                         request.secondaryButtonTitle?.toUpperCase() ?? '',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
-                          color: HexColor.fromHex(CustomColors.colorPurple),
+                          color: Colors.deepPurpleAccent,
                         ),
                       ),
                     ),
@@ -91,9 +88,9 @@ class AlertCenterSheet extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 14),
                       child: Text(
                         request.mainButtonTitle?.toUpperCase() ?? '',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
-                          color: HexColor.fromHex(CustomColors.colorPurple),
+                          color: Colors.deepPurpleAccent,
                         ),
                       ),
                     ),

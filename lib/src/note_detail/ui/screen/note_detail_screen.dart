@@ -20,22 +20,17 @@ class NoteDetailScreen extends StatelessWidget {
             color: viewModel.noteColor,
             child: Stack(
               children: [
-                SingleChildScrollView(
-                  child: Container(
-                    constraints: BoxConstraints(
-                      maxHeight: MediaQuery.of(context).size.height / 1.04,
-                    ),
-                    color: viewModel.noteColor,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const NoteDetailTopBarWidget(),
-                        viewModel.images.isNotEmpty || viewModel.remoteImages.isNotEmpty
-                            ? const NoteDetailImagesWidget()
-                            : const SizedBox.shrink(),
-                        const NoteDetailBodyWidget(),
-                      ],
-                    ),
+                Container(
+                  color: viewModel.noteColor,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const NoteDetailTopBarWidget(),
+                      viewModel.images.isNotEmpty || viewModel.remoteImages.isNotEmpty
+                          ? const NoteDetailImagesWidget()
+                          : const SizedBox.shrink(),
+                      const NoteDetailBodyWidget(),
+                    ],
                   ),
                 ),
                 Visibility(
@@ -52,8 +47,11 @@ class NoteDetailScreen extends StatelessWidget {
               ],
             ),
           ),
-          floatingActionButton: const NoteDetailBottomWidget(),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+          bottomNavigationBar: Container(
+            color: viewModel.noteColor,
+            padding: const EdgeInsets.only(bottom: 10.0),
+            child: const NoteDetailBottomWidget(),
+          ),
         ),
       ),
     );

@@ -67,6 +67,7 @@ class HomeTopBarWidget extends ViewModelWidget<HomeViewModel> {
                       hintStyle: TextStyle(fontSize: 20.0, color: textColor),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30.0),
+                        borderSide: BorderSide.none
                       ),
                       suffixIcon: Visibility(
                         visible: viewModel.isSearching,

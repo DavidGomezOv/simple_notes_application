@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:simple_notes_application/routes.dart';
@@ -39,7 +38,6 @@ class HomeViewModel extends AppBaseViewModel {
     myBanner.load();
   }
 
-  //Production Banner ID ca-app-pub-3541200025569380~7614899970
   final BannerAd myBanner = BannerAd(
     adUnitId: 'ca-app-pub-3541200025569380/3516707010',
     size: AdSize.banner,
@@ -50,8 +48,8 @@ class HomeViewModel extends AppBaseViewModel {
       // Called when an ad request failed.
       onAdFailedToLoad: (Ad ad, LoadAdError error) {
         // Dispose the ad here to free resources.
-        ad.dispose();
         print('Ad failed to load: $error');
+        ad.dispose();
       },
       // Called when an ad opens an overlay that covers the screen.
       onAdOpened: (Ad ad) => print('Ad opened.'),
@@ -125,19 +123,6 @@ class HomeViewModel extends AppBaseViewModel {
     final token = await SharedPreferenceHelper.getSessionToken();
     if (token == null) {
       getNotes();
-    }
-  }
-
-  void onUserTap() async {
-    closeFabButton();
-    final user = FirebaseAuth.instance.currentUser;
-    final userId = await SharedPreferenceHelper.getSessionToken();
-    if (user != null && userId != null) {
-      appNavigator.push(Routes.signOut);
-    } else {
-      appNavigator.push(Routes.auth).then(
-            (value) => getNotes(),
-          );
     }
   }
 

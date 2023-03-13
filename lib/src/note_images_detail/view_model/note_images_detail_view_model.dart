@@ -75,22 +75,23 @@ class NoteImagesDetailViewModel extends AppBaseViewModel {
 
   Future<void> downloadImages(DownloadType type) async {
     if (type == DownloadType.one) {
-      getFile(remoteImages[position]!).then((value) async {
-        saveFile(
-          '${noteSelected.title}-${remoteImages[position]!.imageName!}',
-          value,
-          remoteImages[position]!.imageUrl!.contains('https'),
-          noteSelected.id!,
-        ).then(
-          (value) => showSnackBar(AppStrings().downloadImageConfirmation),
-        );
-      }).catchError((error) {
-        handleApiResponse(error.toString());
+      final imageData = File(remoteImages[position]!.imageUrl!);
+      saveFile(
+        '${noteSelected.title}-${remoteImages[position]!.imageName!}',
+        imageData,
+        remoteImages[position]!.imageUrl!.contains('https'),
+        noteSelected.id!,
+      )
+          .then(
+        (value) => showSnackBar(AppStrings().downloadImageConfirmation),
+      )
+          .catchError((error) {
+        handleApiResponse(error);
       });
     } else {
       for (var element in remoteImages) {
         try {
-          final imageData = await getFile(element!);
+          final imageData = File(element!.imageUrl!);
           await saveFile(
             '${noteSelected.title}-${element.imageName!}',
             imageData,
@@ -109,18 +110,6 @@ class NoteImagesDetailViewModel extends AppBaseViewModel {
     }
   }
 
-  Future<dynamic> getFile(NoteImageModel imageSelected) async {
-    if (imageSelected.imageUrl!.contains('https')) {
-      final data = await _noteImagesService.downloadImage(
-        noteSelected.id!,
-        imageSelected.imageName!,
-      );
-      return data;
-    } else {
-      return File(imageSelected.imageUrl!);
-    }
-  }
-
   Future<bool?> saveFile(
       String name, dynamic file, bool isRemote, String noteModelId) async {
     try {
@@ -128,7 +117,7 @@ class NoteImagesDetailViewModel extends AppBaseViewModel {
       if (isRemote) {
         final directory = await getApplicationDocumentsDirectory();
         final Directory appDocDirFolder =
-        Directory('${directory.path}/$noteModelId');
+            Directory('${directory.path}/$noteModelId');
         final imageData = File.fromRawPath(file as Uint8List);
         fileToSave = await imageData.copy('${appDocDirFolder.path}/$name');
       } else {

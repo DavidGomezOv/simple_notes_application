@@ -42,6 +42,11 @@ class NoteDetailViewModel extends AppBaseViewModel {
   List<NoteImageModel?> get remoteImages =>
       _noteDetailService.remoteImageList.value;
 
+  bool get isExpandedImages => _noteDetailService.expandedImages.value;
+
+  void changeExpandedImages(bool isExpanded) =>
+      _noteDetailService.expandedImages.value = isExpanded;
+
   TextEditingController titleController = TextEditingController();
   TextEditingController contentController = TextEditingController();
 
@@ -211,12 +216,12 @@ class NoteDetailViewModel extends AppBaseViewModel {
 
   void onTextSizeChanged(bool increaseSize) {
     if (increaseSize) {
-      if (textSize < 30) {
+      if (textSize < 28) {
         _noteDetailService.textSize.value += 1;
         validateButton();
       }
     } else {
-      if (textSize > 10) {
+      if (textSize > 12) {
         _noteDetailService.textSize.value -= 1;
         validateButton();
       }

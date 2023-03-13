@@ -45,14 +45,12 @@ class HomeScreen extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    //TODO CHANGE WITH REAL IMPLEMENTATION
-                    if (kDebugMode)
-                      Container(
-                        alignment: Alignment.center,
-                        width: viewModel.myBanner.size.width.toDouble(),
-                        height: viewModel.myBanner.size.height.toDouble(),
-                        child: AdWidget(ad: viewModel.myBanner),
-                      ),
+                    Container(
+                      alignment: Alignment.center,
+                      width: viewModel.myBanner.size.width.toDouble(),
+                      height: viewModel.myBanner.size.height.toDouble(),
+                      child: AdWidget(ad: viewModel.myBanner),
+                    ),
                     Expanded(
                       child: viewModel.notes.isEmpty
                           ? Padding(
@@ -85,7 +83,11 @@ class HomeScreen extends StatelessWidget {
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
           floatingActionButton: FloatingActionButton(
-            child: const Icon(Icons.add),
+            backgroundColor: Colors.deepPurpleAccent,
+            child: const Icon(
+              Icons.add,
+              color: Colors.white,
+            ),
             onPressed: () => viewModel.onNoteTap(null),
           ),
         ),

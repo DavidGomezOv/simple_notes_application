@@ -21,7 +21,7 @@ class NoteDetailBottomWidget extends ViewModelWidget<NoteDetailViewModel> {
       child: Container(
         color: viewModel.loading ? Colors.transparent : viewModel.noteColor,
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        height: 155,
+        height: 160,
         child: Column(
           children: [
             Row(
@@ -161,12 +161,13 @@ class NoteDetailBottomWidget extends ViewModelWidget<NoteDetailViewModel> {
             ),
             SizedBox(
               width: double.infinity,
+              height: 45,
               child: TextButton(
                 style: ButtonStyle(
                   backgroundColor:
                       viewModel.loading || !viewModel.isButtonAvailable
                           ? MaterialStateProperty.all<Color>(Colors.white12)
-                          : MaterialStateProperty.all<Color>(Colors.blue),
+                          : MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
                   overlayColor:
                       viewModel.loading || !viewModel.isButtonAvailable
                           ? null
@@ -179,7 +180,7 @@ class NoteDetailBottomWidget extends ViewModelWidget<NoteDetailViewModel> {
                   viewModel.noteSelected == null
                       ? AppStrings().saveLabel
                       : AppStrings().editLabel,
-                  style: TextStyle(color: color),
+                  style: TextStyle(color: color, fontSize: 18),
                 ),
               ),
             ),
