@@ -42,19 +42,3 @@ class NoteImageModelAdapter extends TypeAdapter<NoteImageModel> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
-
-// **************************************************************************
-// JsonSerializableGenerator
-// **************************************************************************
-
-NoteImageModel _$NoteImageModelFromJson(Map<String, dynamic> json) =>
-    NoteImageModel(
-      json['imageUrl'] as String?,
-      json['imageName'] as String?,
-    );
-
-Map<String, dynamic> _$NoteImageModelToJson(NoteImageModel instance) =>
-    <String, dynamic>{
-      'imageUrl': instance.imageUrl,
-      'imageName': instance.imageName,
-    };

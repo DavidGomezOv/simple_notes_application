@@ -17,23 +17,24 @@ class NoteModelAdapter extends TypeAdapter<NoteModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return NoteModel(
-      fields[1] as String?,
-      fields[2] as String?,
-      fields[3] as String?,
-      fields[4] as DateTime?,
-      fields[5] as String?,
-      fields[6] as bool?,
-      fields[7] as String?,
-      fields[8] as double?,
+      id: fields[1] as String?,
+      title: fields[2] as String?,
+      content: fields[3] as String?,
+      createdAt: fields[4] as DateTime?,
+      color: fields[5] as String?,
+      isPinned: fields[6] as bool?,
+      textType: fields[7] as String?,
+      textSize: fields[8] as double?,
     )
       ..userId = fields[9] as String?
-      ..images = (fields[10] as List?)?.cast<NoteImageModel?>();
+      ..images = (fields[10] as List?)?.cast<NoteImageModel?>()
+      ..notePin = fields[11] as String?;
   }
 
   @override
   void write(BinaryWriter writer, NoteModel obj) {
     writer
-      ..writeByte(10)
+      ..writeByte(11)
       ..writeByte(1)
       ..write(obj.id)
       ..writeByte(2)
@@ -53,7 +54,9 @@ class NoteModelAdapter extends TypeAdapter<NoteModel> {
       ..writeByte(9)
       ..write(obj.userId)
       ..writeByte(10)
-      ..write(obj.images);
+      ..write(obj.images)
+      ..writeByte(11)
+      ..write(obj.notePin);
   }
 
   @override
@@ -66,37 +69,3 @@ class NoteModelAdapter extends TypeAdapter<NoteModel> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
-
-// **************************************************************************
-// JsonSerializableGenerator
-// **************************************************************************
-
-NoteModel _$NoteModelFromJson(Map<String, dynamic> json) => NoteModel(
-      json['id'] as String?,
-      json['title'] as String?,
-      json['content'] as String?,
-      NoteModel._fromJson(json['createdAt'] as Timestamp),
-      json['color'] as String?,
-      json['isPinned'] as bool?,
-      json['textType'] as String?,
-      (json['textSize'] as num?)?.toDouble(),
-    )
-      ..userId = json['userId'] as String?
-      ..images = (json['images'] as List<dynamic>?)
-          ?.map((e) => e == null
-              ? null
-              : NoteImageModel.fromJson(e as Map<String, dynamic>))
-          .toList();
-
-Map<String, dynamic> _$NoteModelToJson(NoteModel instance) => <String, dynamic>{
-      'id': instance.id,
-      'title': instance.title,
-      'content': instance.content,
-      'createdAt': NoteModel._toJson(instance.createdAt),
-      'color': instance.color,
-      'isPinned': instance.isPinned,
-      'textType': instance.textType,
-      'textSize': instance.textSize,
-      'userId': instance.userId,
-      'images': instance.images?.map((e) => e?.toJson()).toList(),
-    };

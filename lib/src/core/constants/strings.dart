@@ -48,7 +48,8 @@ class AppStrings {
 
   String get noNotesLabel => AppLocalizations.of(_context)!.noNotesLabel;
 
-  String get searchEmptyLabel => AppLocalizations.of(_context)!.searchEmptyLabel;
+  String get searchEmptyLabel =>
+      AppLocalizations.of(_context)!.searchEmptyLabel;
 
   String get noteTitleLabel => AppLocalizations.of(_context)!.noteTitleLabel;
 
@@ -114,6 +115,24 @@ class AppStrings {
   String get signOutMessageBottom =>
       AppLocalizations.of(_context)!.signOutMessageBottom;
 
-  String get signOutButtonLabel =>
-      AppLocalizations.of(_context)!.signOutButtonLabel;
+  String get pinNoteDialogTitle =>
+      AppLocalizations.of(_context)!.pinNoteDialogTitle;
+
+  String get pinNoteDialogLabel =>
+      AppLocalizations.of(_context)!.pinNoteDialogLabel;
+
+  String get unlockNoteDialogTitle =>
+      AppLocalizations.of(_context)!.unlockNoteDialogTitle;
+
+  String get unlockNoteDialogLabel =>
+      AppLocalizations.of(_context)!.unlockNoteDialogLabel;
+
+  String get lockedNoteLabel =>
+      AppLocalizations.of(_context)!.lockedNoteLabel;
+
+  String get incorrectNotePin =>
+      AppLocalizations.of(_context)!.incorrectNotePin;
+
+  String get authReason =>
+      AppLocalizations.of(_context)!.authReason;
 }

@@ -38,5 +38,12 @@
     "signOutMessage" : "Your notes are saved so you wont lose it",
     "signOutMessageMiddle" : "You can log out but the notes will save locally on your phone",
     "signOutMessageBottom" : "You can log in anytime you want",
-    "signOutButtonLabel" : "Sign out"
+    "signOutButtonLabel" : "Sign out",
+    "pinNoteDialogTitle" : "Lock the note",
+    "pinNoteDialogLabel" : "Enter a pin lock the note",
+    "unlockNoteDialogTitle" : "Unlock the note",
+    "unlockNoteDialogLabel" : "Enter the pin to unlock the note",
+    "lockedNoteLabel" : "Locked note",
+    "incorrectNotePin" : "Incorrect pin",
+    "authReason" : "Please authenticate to unlock the note"
 }

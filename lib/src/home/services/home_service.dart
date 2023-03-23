@@ -26,38 +26,6 @@ class HomeService extends BaseReactiveService {
     ]);
   }
 
-  Future<dynamic> getNotes() async {
-    final token = await SharedPreferenceHelper.getSessionToken();
-    if (token != null) {
-      return getFirebaseNotes();
-    } else {
-      return getLocalNotes();
-    }
-  }
-
-  Future<dynamic> getFirebaseNotes() async {
-    streamSubscription?.cancel();
-    loadingReactiveValue.value = true;
-    final stream = await _repository.getNotes();
-    streamSubscription = stream.listen((event) {
-      loadingReactiveValue.value = false;
-      List<NoteModel> notes = [];
-      for (var e in event.docs) {
-        notes.add(NoteModel.fromJson(e.data()));
-      }
-      if (notes.isNotEmpty) {
-        notes.sort(
-          (a, b) => b.createdAt!.compareTo(a.createdAt!),
-        );
-        notes.sort(
-          (a, b) => b.isPinned! ? 1 : -1,
-        );
-      }
-      completeList = notes;
-      notesValue.value = notes;
-    });
-  }
-
   Future<dynamic> getLocalNotes() async {
     loadingReactiveValue.value = true;
     _repository.getLocalNotes().then((value) {

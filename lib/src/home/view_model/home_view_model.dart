@@ -73,7 +73,7 @@ class HomeViewModel extends AppBaseViewModel {
   }
 
   void getNotes() {
-    _homeService.getNotes().catchError((error) {
+    _homeService.getLocalNotes().catchError((error) {
       handleApiResponse(error.toString());
     });
   }
@@ -115,15 +115,8 @@ class HomeViewModel extends AppBaseViewModel {
     closeFabButton();
     _homeService.noteSelectedValue.value = noteModel;
     appNavigator.push(Routes.noteDetail).then((value) {
-      validateReloadPage();
-    });
-  }
-
-  Future<void> validateReloadPage() async {
-    final token = await SharedPreferenceHelper.getSessionToken();
-    if (token == null) {
       getNotes();
-    }
+    });
   }
 
   void onPhotoNoteTap() {

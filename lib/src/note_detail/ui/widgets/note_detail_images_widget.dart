@@ -24,7 +24,7 @@ class NoteDetailImagesWidget extends ViewModelWidget<NoteDetailViewModel> {
         expandedHeaderPadding: const EdgeInsets.symmetric(vertical: 6),
         children: [
           ExpansionPanel(
-            backgroundColor: Colors.white24,
+            backgroundColor: Colors.white12,
             canTapOnHeader: true,
             isExpanded: viewModel.isExpandedImages,
             headerBuilder: (context, isExpanded) => Padding(
@@ -40,8 +40,7 @@ class NoteDetailImagesWidget extends ViewModelWidget<NoteDetailViewModel> {
                 ),
               ),
             ),
-            body: Container(
-              color: viewModel.noteColor,
+            body: SizedBox(
               height: 280,
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,

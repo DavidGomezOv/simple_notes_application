@@ -82,6 +82,19 @@ class NoteDetailTopBarWidget extends ViewModelWidget<NoteDetailViewModel> {
                     ),
                   )
                 : const SizedBox.shrink(),
+            MaterialButton(
+              visualDensity: VisualDensity.compact,
+              minWidth: 60,
+              height: 60,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50),
+              ),
+              onPressed: viewModel.lockNote,
+              child: Icon(
+                viewModel.isProtected ? Icons.lock_outline : Icons.lock_open_outlined,
+                color: Colors.white,
+              ),
+            )
           ],
         ),
       ),

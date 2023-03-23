@@ -9,7 +9,7 @@ import 'package:simple_notes_application/src/note_detail/view_model/note_detail_
 import 'package:stacked/stacked.dart';
 
 class NoteDetailBottomWidget extends ViewModelWidget<NoteDetailViewModel> {
-  const   NoteDetailBottomWidget({super.key});
+  const NoteDetailBottomWidget({super.key});
 
   @override
   Widget build(BuildContext context, NoteDetailViewModel viewModel) {
@@ -39,7 +39,8 @@ class NoteDetailBottomWidget extends ViewModelWidget<NoteDetailViewModel> {
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 5),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 6, vertical: 5),
                     child: Text(
                       'B',
                       style: TextStyle(
@@ -61,7 +62,10 @@ class NoteDetailBottomWidget extends ViewModelWidget<NoteDetailViewModel> {
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 8,),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 6,
+                      vertical: 8,
+                    ),
                     child: FaIcon(
                       FontAwesomeIcons.italic,
                       size: 20,
@@ -167,7 +171,8 @@ class NoteDetailBottomWidget extends ViewModelWidget<NoteDetailViewModel> {
                   backgroundColor:
                       viewModel.loading || !viewModel.isButtonAvailable
                           ? MaterialStateProperty.all<Color>(Colors.white12)
-                          : MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
+                          : MaterialStateProperty.all<Color>(
+                              Colors.deepPurpleAccent),
                   overlayColor:
                       viewModel.loading || !viewModel.isButtonAvailable
                           ? null
@@ -175,7 +180,7 @@ class NoteDetailBottomWidget extends ViewModelWidget<NoteDetailViewModel> {
                 ),
                 onPressed: viewModel.loading || !viewModel.isButtonAvailable
                     ? null
-                    : () => viewModel.saveNote(),
+                    : viewModel.saveNote,
                 child: Text(
                   viewModel.noteSelected == null
                       ? AppStrings().saveLabel

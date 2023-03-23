@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:local_auth/local_auth.dart';
+import 'package:stacked/stacked.dart';
 import 'package:simple_notes_application/routes.dart';
 import 'package:simple_notes_application/src/core/base/base_view_model.dart';
 import 'package:simple_notes_application/src/core/constants/constants.dart';
@@ -15,7 +17,6 @@ import 'package:simple_notes_application/src/home/model/note_image_model.dart';
 import 'package:simple_notes_application/src/home/model/note_model.dart';
 import 'package:simple_notes_application/src/home/services/home_service.dart';
 import 'package:simple_notes_application/src/note_detail/services/note_detail_service.dart';
-import 'package:stacked/stacked.dart';
 
 class NoteDetailViewModel extends AppBaseViewModel {
   final _homeService = locator<HomeService>();
@@ -47,6 +48,10 @@ class NoteDetailViewModel extends AppBaseViewModel {
   void changeExpandedImages(bool isExpanded) =>
       _noteDetailService.expandedImages.value = isExpanded;
 
+  bool get isProtected => _noteDetailService.isProtected.value;
+
+  bool get isLocked => _noteDetailService.isLocked.value;
+
   TextEditingController titleController = TextEditingController();
   TextEditingController contentController = TextEditingController();
 
@@ -54,10 +59,16 @@ class NoteDetailViewModel extends AppBaseViewModel {
 
   bool isUpdate = false;
 
+  String? notePin;
+
   final BuildContext context;
 
   NoteDetailViewModel(this.context) : super(context) {
+    if (noteSelected != null) {
+      isUpdate = true;
+    }
     _noteDetailService.resetValues();
+    validateLockedNote();
     loadNoteModel();
     initTimer();
   }
@@ -72,6 +83,70 @@ class NoteDetailViewModel extends AppBaseViewModel {
   void dispose() {
     timer?.cancel();
     super.dispose();
+  }
+
+  Future<void> validateLockedNote() async {
+    if (isUpdate && noteSelected!.notePin != null) {
+      final LocalAuthentication auth = LocalAuthentication();
+      bool didAuthenticate = false;
+      try {
+        didAuthenticate = await auth.authenticate(
+            localizedReason: AppStrings().authReason,
+            options: const AuthenticationOptions(biometricOnly: true));
+        if (didAuthenticate == true) {
+          _noteDetailService.isLocked.value = false;
+        }
+      } catch (e) {
+        showInputPinDialog(
+          context: context,
+          title: AppStrings().unlockNoteDialogTitle,
+          message: AppStrings().unlockNoteDialogLabel,
+          acceptClick: (pin) async {
+            if (pin != null && pin == noteSelected!.notePin) {
+              _noteDetailService.isLocked.value = false;
+            } else {
+              handleApiResponse(
+                AppStrings().incorrectNotePin,
+              );
+            }
+          },
+          cancelClick: () => appNavigator.back(),
+        );
+      }
+    } else {
+      _noteDetailService.isLocked.value = false;
+    }
+  }
+
+  void loadNoteModel() {
+    _noteDetailService.textSize.value = noteSelected?.textSize ?? 18;
+    titleController.text = noteSelected?.title ?? '';
+    contentController.text = noteSelected?.content ?? '';
+    _noteDetailService.createdDate.value =
+        noteSelected?.createdAt ?? DateTime.now();
+    _noteDetailService.colorValue.value =
+        HexColor.fromHex(noteSelected?.color ?? CustomColors.colorBlack74);
+    _noteDetailService.isNotePinned.value = noteSelected?.isPinned ?? false;
+    _noteDetailService.textType.value =
+        stringToEnum(noteSelected?.textType) ?? TextType.normal;
+    _noteDetailService.isProtected.value = noteSelected?.notePin != null;
+    loadNoteImages();
+  }
+
+  void loadNoteImages() {
+    noteSelected?.images?.forEach((element) {
+      if (element != null) {
+        _noteDetailService.remoteImageList.value.add(element);
+      }
+    });
+  }
+
+  void initTimer() {
+    if (isUpdate) return;
+    timer?.cancel();
+    timer = Timer.periodic(const Duration(seconds: 5), (timer) {
+      _noteDetailService.createdDate.value = DateTime.now();
+    });
   }
 
   Future pickImages() async {
@@ -94,7 +169,7 @@ class NoteDetailViewModel extends AppBaseViewModel {
       image = [await ImagePicker().pickImage(source: imageSource)];
     }
     _noteDetailService.loadingReactiveValue.value = false;
-    if (image.isEmpty) return;
+    if (image.isEmpty || (image[0] == null)) return;
 
     for (var element in image) {
       if (element == null) continue;
@@ -124,39 +199,6 @@ class NoteDetailViewModel extends AppBaseViewModel {
       }
     }
     _noteDetailService.loadingReactiveValue.value = false;
-  }
-
-  void loadNoteModel() {
-    if (noteSelected != null) {
-      isUpdate = true;
-    }
-    _noteDetailService.textSize.value = noteSelected?.textSize ?? 18;
-    titleController.text = noteSelected?.title ?? '';
-    contentController.text = noteSelected?.content ?? '';
-    _noteDetailService.createdDate.value =
-        noteSelected?.createdAt ?? DateTime.now();
-    _noteDetailService.colorValue.value =
-        HexColor.fromHex(noteSelected?.color ?? CustomColors.colorBlack74);
-    _noteDetailService.isNotePinned.value = noteSelected?.isPinned ?? false;
-    _noteDetailService.textType.value =
-        stringToEnum(noteSelected?.textType) ?? TextType.normal;
-    loadNoteImages();
-  }
-
-  void loadNoteImages() {
-    noteSelected?.images?.forEach((element) {
-      if (element != null) {
-        _noteDetailService.remoteImageList.value.add(element);
-      }
-    });
-  }
-
-  void initTimer() {
-    if (isUpdate) return;
-    timer?.cancel();
-    timer = Timer.periodic(const Duration(seconds: 5), (timer) {
-      _noteDetailService.createdDate.value = DateTime.now();
-    });
   }
 
   void validateButton() {
@@ -253,19 +295,42 @@ class NoteDetailViewModel extends AppBaseViewModel {
     if (isUpdate) saveNote(needGoBack: false);
   }
 
+  void lockNote() {
+    _noteDetailService.isProtected.value =
+        !_noteDetailService.isProtected.value;
+    if (isProtected) {
+      showInputPinDialog(
+          context: context,
+          title: AppStrings().pinNoteDialogTitle,
+          message: AppStrings().pinNoteDialogLabel,
+          acceptClick: (pin) {
+            notePin = pin;
+            if (isUpdate) saveNote(needGoBack: false);
+          },
+          cancelClick: () {
+            _noteDetailService.isProtected.value =
+                !_noteDetailService.isProtected.value;
+          });
+    } else {
+      notePin = null;
+      if (isUpdate) saveNote(needGoBack: false);
+    }
+  }
+
   void saveNote({bool needGoBack = true}) {
     FocusScope.of(context).requestFocus(FocusNode());
     final note = NoteModel(
-      noteSelected?.id ?? DateTime.now().toString(),
-      titleController.text.toString(),
-      contentController.text.toString(),
-      createdDate,
-      noteColor.toHex(),
-      isNotePinned,
-      textType.asString(),
-      textSize,
+      id: noteSelected?.id ?? DateTime.now().toString(),
+      title: titleController.text.toString(),
+      content: contentController.text.toString(),
+      createdAt: createdDate,
+      color: noteColor.toHex(),
+      isPinned: isNotePinned,
+      textType: textType.asString(),
+      textSize: textSize,
     );
     note.images = _noteDetailService.remoteImageList.value;
+    note.notePin = notePin;
     _noteDetailService.createNote(note, images).then((value) {
       if (needGoBack) appNavigator.back();
     }).catchError((error) {

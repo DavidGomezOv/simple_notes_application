@@ -8,6 +8,7 @@ enum TextType {
 enum DialogType {
   error,
   informative,
+  inputNotePin,
 }
 
 enum DownloadType {

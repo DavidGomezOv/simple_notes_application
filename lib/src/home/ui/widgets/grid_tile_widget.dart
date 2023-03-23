@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simple_notes_application/src/core/constants/constants.dart';
+import 'package:simple_notes_application/src/core/constants/strings.dart';
 import 'package:simple_notes_application/src/core/extensions/generic_extensions.dart';
 import 'package:simple_notes_application/src/core/extensions/string_extensions.dart';
 import 'package:simple_notes_application/src/home/model/note_model.dart';
@@ -58,13 +59,21 @@ class GridTileWidget extends ViewModelWidget<HomeViewModel> {
                               color: Colors.white,
                             )
                           : const SizedBox.shrink(),
+                      noteModel!.notePin != null
+                          ? const Icon(
+                              Icons.lock_outline,
+                              color: Colors.white,
+                            )
+                          : const SizedBox.shrink(),
                     ],
                   ),
                   const SizedBox(
                     height: 10,
                   ),
                   Text(
-                    noteModel!.content ?? '',
+                    noteModel!.notePin != null
+                        ? AppStrings().lockedNoteLabel
+                        : noteModel!.content ?? '',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 16.0,
