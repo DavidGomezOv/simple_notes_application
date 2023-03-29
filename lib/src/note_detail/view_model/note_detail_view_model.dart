@@ -111,6 +111,7 @@ class NoteDetailViewModel extends AppBaseViewModel {
             }
           },
           cancelClick: () => appNavigator.back(),
+          autoAccept: true,
         );
       }
     } else {
@@ -130,6 +131,7 @@ class NoteDetailViewModel extends AppBaseViewModel {
     _noteDetailService.textType.value =
         stringToEnum(noteSelected?.textType) ?? TextType.normal;
     _noteDetailService.isProtected.value = noteSelected?.notePin != null;
+    notePin = noteSelected?.notePin;
     loadNoteImages();
   }
 
@@ -300,17 +302,18 @@ class NoteDetailViewModel extends AppBaseViewModel {
         !_noteDetailService.isProtected.value;
     if (isProtected) {
       showInputPinDialog(
-          context: context,
-          title: AppStrings().pinNoteDialogTitle,
-          message: AppStrings().pinNoteDialogLabel,
-          acceptClick: (pin) {
-            notePin = pin;
-            if (isUpdate) saveNote(needGoBack: false);
-          },
-          cancelClick: () {
-            _noteDetailService.isProtected.value =
-                !_noteDetailService.isProtected.value;
-          });
+        context: context,
+        title: AppStrings().pinNoteDialogTitle,
+        message: AppStrings().pinNoteDialogLabel,
+        acceptClick: (pin) {
+          notePin = pin;
+          if (isUpdate) saveNote(needGoBack: false);
+        },
+        cancelClick: () {
+          _noteDetailService.isProtected.value =
+              !_noteDetailService.isProtected.value;
+        },
+      );
     } else {
       notePin = null;
       if (isUpdate) saveNote(needGoBack: false);

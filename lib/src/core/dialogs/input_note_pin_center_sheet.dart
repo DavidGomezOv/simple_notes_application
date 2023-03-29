@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:simple_notes_application/src/core/widgets/pin_code_fields_widgets.dart';
-import 'package:stacked_services/stacked_services.dart';
 
 class InputNotePinCenterSheet extends StatelessWidget {
   final String title;
@@ -10,6 +9,7 @@ class InputNotePinCenterSheet extends StatelessWidget {
   final String secondaryButtonTitle;
   final Function(String? pin)? accept;
   Function()? cancel;
+  final bool autoAccept;
 
   String? _pinData;
 
@@ -20,6 +20,7 @@ class InputNotePinCenterSheet extends StatelessWidget {
     required this.mainButtonTitle,
     required this.secondaryButtonTitle,
     required this.accept,
+    this.autoAccept = false,
     this.cancel,
   }) : super(key: key);
 
@@ -78,11 +79,18 @@ class InputNotePinCenterSheet extends StatelessWidget {
                 inputFormatters: [
                   FilteringTextInputFormatter.digitsOnly,
                 ],
+                autofocus: true,
                 textStyle: const TextStyle(
                     fontSize: 30.0,
                     fontWeight: FontWeight.bold,
                     color: Colors.black),
-                onComplete: (text) => _pinData = text,
+                onComplete: (text) {
+                  _pinData = text;
+                  if (autoAccept) {
+                    accept?.call(_pinData);
+                  }
+                  FocusScope.of(context).unfocus();
+                },
               ),
               const SizedBox(
                 height: 10,

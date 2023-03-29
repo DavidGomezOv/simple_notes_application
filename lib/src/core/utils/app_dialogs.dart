@@ -54,6 +54,7 @@ void showInputPinDialog({
   required Function(String? pin) acceptClick,
   required BuildContext context,
   Function? cancelClick,
+  bool autoAccept = false,
 }) async {
   showGeneralDialog(
     barrierDismissible: false,
@@ -88,6 +89,7 @@ void showInputPinDialog({
             Navigator.pop(context);
             cancelClick?.call();
           },
+          autoAccept: autoAccept,
         ),
       ),
     ),
