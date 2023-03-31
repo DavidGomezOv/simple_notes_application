@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:injectable/injectable.dart';
 import 'package:simple_notes_application/src/core/base/base_reactive_service.dart';
-import 'package:simple_notes_application/src/core/utils/shared_preferences_helper.dart';
 import 'package:simple_notes_application/src/home/api/repository/home_repository.dart';
 import 'package:simple_notes_application/src/home/model/note_model.dart';
 import 'package:stacked/stacked.dart';

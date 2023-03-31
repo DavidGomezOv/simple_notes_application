@@ -6,7 +6,6 @@ import 'package:simple_notes_application/routes.dart';
 import 'package:simple_notes_application/src/core/di/app_component.dart';
 import 'package:simple_notes_application/src/core/dialogs/error_bottom_sheet.dart';
 import 'package:simple_notes_application/src/core/dialogs/informative_bottom_sheet.dart';
-import 'package:simple_notes_application/src/core/dialogs/input_note_pin_center_sheet.dart';
 import 'package:simple_notes_application/src/core/enums/enums.dart';
 import 'package:simple_notes_application/src/home/model/note_image_model.dart';
 import 'package:simple_notes_application/src/home/model/note_model.dart';
