@@ -135,4 +135,7 @@ class AppStrings {
 
   String get authReason =>
       AppLocalizations.of(_context)!.authReason;
+
+  String get doneLabel =>
+      AppLocalizations.of(_context)!.doneLabel;
 }

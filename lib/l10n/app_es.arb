@@ -45,5 +45,6 @@
     "unlockNoteDialogLabel" : "Ingresa el pin para desbloquear la nota",
     "lockedNoteLabel" : "Nota bloqueada",
     "incorrectNotePin" : "Pin incorrecto",
-    "authReason" : "Por favor autentícate para desbloquear la nota"
+    "authReason" : "Por favor autentícate para desbloquear la nota",
+    "doneLabel" : "Listo"
 }

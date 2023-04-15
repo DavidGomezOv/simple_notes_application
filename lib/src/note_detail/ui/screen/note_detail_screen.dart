@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:simple_notes_application/src/core/base/base_screen.dart';
 import 'package:simple_notes_application/src/core/constants/strings.dart';
+import 'package:simple_notes_application/src/core/widgets/input_done_view_widget.dart';
 import 'package:simple_notes_application/src/note_detail/ui/widgets/note_detail_body_widget.dart';
 import 'package:simple_notes_application/src/note_detail/ui/widgets/note_detail_bottom_widget.dart';
 import 'package:simple_notes_application/src/note_detail/ui/widgets/note_detail_images_widget.dart';
@@ -14,72 +17,81 @@ class NoteDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<NoteDetailViewModel>.reactive(
       viewModelBuilder: () => NoteDetailViewModel(context),
-      builder: (context, viewModel, child) => SafeArea(
-        child: Scaffold(
-          body: Container(
-            height: MediaQuery.of(context).size.height,
-            color: viewModel.noteColor,
-            child: viewModel.isLocked
-                ? Center(
-                    child: Text(AppStrings().lockedNoteLabel),
-                  )
-                : Stack(
-                    children: [
-                      Container(
-                        color: viewModel.noteColor,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const NoteDetailTopBarWidget(),
-                            viewModel.images.isNotEmpty ||
-                                    viewModel.remoteImages.isNotEmpty
-                                ? const NoteDetailImagesWidget()
-                                : const SizedBox.shrink(),
-                            const NoteDetailBodyWidget(),
-                          ],
-                        ),
-                      ),
-                      Visibility(
-                        visible: viewModel.loading,
-                        child: Container(
-                          width: double.maxFinite,
-                          height: double.maxFinite,
-                          color: Colors.black.withAlpha(70),
-                          child: const Center(
-                            child: CircularProgressIndicator(),
+      builder: (context, viewModel, child) => BaseScreen(
+        baseColor: viewModel.noteColor,
+        body: Container(
+          height: MediaQuery.of(context).size.height,
+          color: viewModel.noteColor,
+          child: viewModel.isLocked
+              ? Center(
+                  child: Text(AppStrings().lockedNoteLabel),
+                )
+              : KeyboardVisibilityBuilder(
+                  builder: (context, isKeyboardVisible) {
+                    return Stack(
+                      children: [
+                        Container(
+                          color: viewModel.noteColor,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const NoteDetailTopBarWidget(),
+                              viewModel.images.isNotEmpty ||
+                                      viewModel.remoteImages.isNotEmpty
+                                  ? const NoteDetailImagesWidget()
+                                  : const SizedBox.shrink(),
+                              const NoteDetailBodyWidget(),
+                            ],
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-          ),
-          bottomNavigationBar: viewModel.isLocked
-              ? Container(
-                  color: viewModel.noteColor,
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                  width: double.infinity,
-                  height: 85,
-                  child: TextButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                          Colors.deepPurpleAccent),
-                      overlayColor:
-                          MaterialStateProperty.all<Color>(Colors.white12),
-                    ),
-                    onPressed: viewModel.validateLockedNote,
-                    child: Text(
-                      AppStrings().unlockNoteDialogTitle,
-                      style: const TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                  ),
-                )
-              : Container(
-                  color: viewModel.noteColor,
-                  padding: const EdgeInsets.only(bottom: 10.0),
-                  child: const NoteDetailBottomWidget(),
+                        if (isKeyboardVisible)
+                          Positioned(
+                              bottom: MediaQuery.of(context).viewInsets.bottom,
+                              right: 0.0,
+                              left: 0.0,
+                              child: const InputDoneView()),
+                        Visibility(
+                          visible: viewModel.loading,
+                          child: Container(
+                            width: double.maxFinite,
+                            height: double.maxFinite,
+                            color: Colors.black.withAlpha(70),
+                            child: const Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
         ),
+        bottomNavigationBar: viewModel.isLocked
+            ? Container(
+                color: viewModel.noteColor,
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                width: double.infinity,
+                height: 85,
+                child: TextButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        Colors.deepPurpleAccent),
+                    overlayColor:
+                        MaterialStateProperty.all<Color>(Colors.white12),
+                  ),
+                  onPressed: viewModel.validateLockedNote,
+                  child: Text(
+                    AppStrings().unlockNoteDialogTitle,
+                    style: const TextStyle(color: Colors.white, fontSize: 18),
+                  ),
+                ),
+              )
+            : Container(
+                color: viewModel.noteColor,
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: const NoteDetailBottomWidget(),
+              ),
       ),
     );
   }

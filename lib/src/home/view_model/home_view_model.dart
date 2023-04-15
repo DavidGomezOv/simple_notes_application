@@ -21,13 +21,11 @@ class HomeViewModel extends AppBaseViewModel {
 
   bool get isGridView => _homeService.isGridViewValue.value;
 
+  bool get isSearching => _homeService.isSearching.value;
+
   final BuildContext context;
 
-  bool isSearching = false;
-
   final TextEditingController controllerSearch = TextEditingController();
-
-  //TODO IMPLEMENT SERVICE TO HANDLE NETWORK STATE CHANGES
 
   HomeViewModel(this.context) : super(context) {
     getGridViewValue();
@@ -95,19 +93,20 @@ class HomeViewModel extends AppBaseViewModel {
   void onSearchNote(String searchText) {
     closeFabButton(closeKeyboard: false);
     if (_homeService.completeList.isEmpty) return;
-    isSearching = true;
+    _homeService.isSearching.value = true;
     _homeService.notesValue.value = _homeService.completeList;
     _homeService.notesValue.value = _homeService.notesValue.value
         .where((element) =>
             element.title!.contains(searchText) ||
             element.content!.contains(searchText))
         .toList();
+    if (searchText.isEmpty) _homeService.isSearching.value = false;
   }
 
   void resetSearch() {
     closeFabButton();
     controllerSearch.text = "";
-    isSearching = false;
+    _homeService.isSearching.value = false;
     _homeService.notesValue.value = _homeService.completeList;
   }
 

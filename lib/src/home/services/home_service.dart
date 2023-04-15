@@ -11,6 +11,7 @@ class HomeService extends BaseReactiveService {
   final HomeRepository _repository;
 
   final isGridViewValue = ReactiveValue<bool>(false);
+  final isSearching = ReactiveValue<bool>(false);
   final notesValue = ReactiveValue<List<NoteModel>>([]);
   final noteSelectedValue = ReactiveValue<NoteModel?>(null);
   late List<NoteModel> completeList = [];
@@ -21,6 +22,7 @@ class HomeService extends BaseReactiveService {
     listenToReactiveValues([
       loadingReactiveValue,
       isGridViewValue,
+      isSearching,
       notesValue,
     ]);
   }
@@ -41,5 +43,9 @@ class HomeService extends BaseReactiveService {
         notesValue.value = value;
       }
     }).whenComplete(() => loadingReactiveValue.value = false);
+  }
+
+  void resetValues() {
+    isSearching.value = false;
   }
 }

@@ -63,6 +63,8 @@ class NoteDetailViewModel extends AppBaseViewModel {
 
   final BuildContext context;
 
+  bool showDoneButton = false;
+
   NoteDetailViewModel(this.context) : super(context) {
     if (noteSelected != null) {
       isUpdate = true;
@@ -348,4 +350,6 @@ class NoteDetailViewModel extends AppBaseViewModel {
       appNavigator.push(Routes.imagesDetail);
     }
   }
+
+
 }
