@@ -28,9 +28,11 @@ class BaseScreen extends StatelessWidget {
     return Container(
       color: baseColor,
       child: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: const SystemUiOverlayStyle(
+        value: SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
           statusBarIconBrightness: Brightness.light,
+          systemNavigationBarColor: baseColor,
+          systemNavigationBarIconBrightness: Brightness.light,
         ),
         child: WillPopScope(
           onWillPop: onBackPressed ?? () async => true,
